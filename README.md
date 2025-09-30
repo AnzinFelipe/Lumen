@@ -13,3 +13,12 @@ Dentro da nossa proposta, está incluso:
 3. Melhorar a experiencia de usuário, trazendo uma maior personalização para cada leitor •̤▿•̤*ૢ.
 
 4. Propagadas? Na medida certa ฅ •ﻌ•♡.
+
+## Seção de entregas (๑･▱･๑)
+
+<details open>
+<summary>Entregas dia 29/09</summary>
+
+* Documento das histórias feito pelos membros da equipe: [link.](https://docs.google.com/document/d/1YSObO2cGWXn1hIsaSRV1mavYePjAQah_qWWvB5esNJo/edit?usp=sharing)
+
+</details>
