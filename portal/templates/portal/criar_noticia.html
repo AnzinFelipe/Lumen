@@ -1,0 +1,10 @@
+{% extends "portal/base.html" %}
+
+{% block conteudo %}
+<h1>Crie uma notícia:</h1>
+<form method = "post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type = "submit" value = "Salvar">
+</form>
+{% endblock conteudo %}
