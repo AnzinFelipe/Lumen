@@ -1,16 +1,11 @@
 {% extends "portal/base.html" %}
 
 {% block conteudo %}
-    <a href = "criar_noticia">Criar uma notícia</a>
-    <a href = "login">Login</a>
-    
-
-
     {% if noticias %}
         {% for noticia in noticias %}
             {% if noticia.tema.tema == "Esportes" %}
                 <div>
-                    <h3>{{ noticia.titulo }}</h3>
+                    <a href="/noticia_detalhe/{{ noticia.id }}"><h3>{{ noticia.titulo }}</h3></a>
                     <h4>{{ noticia.subtitulo }}</h4>
                     <p>{{ noticia.texto }}</p>
                     <small>

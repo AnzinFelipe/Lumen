@@ -43,3 +43,10 @@ def economia(request):
 
     contexto = {'noticias': noticias}
     return render(request, 'portal/economia.html', contexto)
+
+def noticia_detalhe(request, id):
+    noticia = Noticia.objects.get(pk = id)
+    contexto = {
+        'noticia' : noticia,
+    }
+    return render(request, 'portal/noticia_detalhe.html', contexto)
