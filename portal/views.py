@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.http import HttpResponse
 from rolepermissions.roles import assign_role
 from rolepermissions.decorators import has_permission_decorator
-
+from portal.models import Noticia
 
 
 # Create your views here.
@@ -26,3 +26,20 @@ def criar_noticia(request):
             form.save()
         return redirect('home')
     
+def esportes(request):
+    noticias = Noticia.objects.all().order_by('-data')
+
+    contexto = {'noticias': noticias}
+    return render(request, 'portal/esportes.html', contexto)
+
+def politica(request):
+    noticias = Noticia.objects.all().order_by('-data')
+
+    contexto = {'noticias': noticias}
+    return render(request, 'portal/politica.html', contexto)
+
+def economia(request):
+    noticias = Noticia.objects.all().order_by('-data')
+
+    contexto = {'noticias': noticias}
+    return render(request, 'portal/economia.html', contexto)

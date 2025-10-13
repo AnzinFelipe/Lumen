@@ -9,7 +9,7 @@ class Tema(models.Model):
 class Noticia(models.Model):
     titulo = models.CharField(max_length=100, blank = False)
     subtitulo = models.CharField(max_length=200, blank = False)
-    texto = models.TextField(blank = False)
+    texto = models.TextField(null = True, blank = False)
     autor = models.CharField(max_length=50, blank = False)
     data = models.DateTimeField("Publicado em: ", auto_now_add = True)
     tema = models.ForeignKey(Tema, on_delete = models.CASCADE)

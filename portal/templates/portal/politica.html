@@ -1,0 +1,25 @@
+{% extends "portal/base.html" %}
+
+{% block conteudo %}
+    <a href = "criar_noticia">Criar uma notícia</a>
+    <a href = "login">Login</a>
+    
+
+
+    {% if noticias %}
+        {% for noticia in noticias %}
+            {% if noticia.tema.tema == "Política" %}
+                <div>
+                    <h3>{{ noticia.titulo }}</h3>
+                    <h4>{{ noticia.subtitulo }}</h4>
+                    <p>{{ noticia.texto }}</p>
+                    <small>
+                        Por {{ noticia.autor }} em {{ noticia.data|date:"d/m/Y" }}
+                    </small>
+                </div>
+            {% endif %}
+        {% endfor %}
+    {% else %}
+        <p>Nenhuma notícia encontrada</p>
+    {% endif %}
+{% endblock conteudo %}
