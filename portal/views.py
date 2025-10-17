@@ -5,6 +5,7 @@ from django.http import HttpResponse
 from rolepermissions.roles import assign_role
 from rolepermissions.decorators import has_permission_decorator
 from portal.models import Noticia
+from .forms import NoticiaForm
 
 
 # Create your views here.

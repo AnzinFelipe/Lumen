@@ -2,9 +2,11 @@
 
 {% block conteudo %}
 <h1>Crie uma notícia:</h1>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit" class="btn btn-primary">Enviar</button>
-</form>
+<div class = "form-group">
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Enviar</button>
+    </form>
+</div>
 {% endblock conteudo %}
