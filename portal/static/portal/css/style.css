@@ -3,3 +3,24 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+.opacidade { 
+  width: 400px; 
+  height: 200px; 
+  overflow-x: auto; 
+  
+  /* edge e ios*/ -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black 20%,
+    black 80%,
+    transparent 100% 
+  ); 
+       
+  /*chrome e firefox*/ mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black 20%, 
+    black 80%, 
+    transparent 100% ); 
+}
