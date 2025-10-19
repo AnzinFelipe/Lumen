@@ -9,4 +9,22 @@
             Por {{ noticia.autor }} em {{ noticia.data|date:"d/m/Y" }}
         </small>
     </div>
+
+    <h2>Leia Mais</h2>
+    <div class = "mais_noticias">
+        {% if outras_noticias %}
+            {% for outra_noticia in outras_noticias%}
+                <div>
+                    <a href="/noticia_detalhe/{{ outra_noticia.id }}"><h5>{{ outra_noticia.titulo }}</h5></a>
+                    <h6>{{ outra_noticia.subtitulo }}</h6>
+                    <p class="opacidade">{{ outra_noticia.texto }}</p>
+                    <small>
+                        Por {{ outra_noticia.autor }} em {{ outra_noticia.data|date:"d/m/Y" }}
+                    </small>
+                </div>
+            {% endfor %}
+        {% else %}
+        <p>Não há outras notícias relacionadas a {{ noticia.tema.tema }}</p>
+        {% endif %}
+    </div>
 {% endblock conteudo %}

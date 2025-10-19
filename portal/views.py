@@ -47,7 +47,9 @@ def economia(request):
 
 def noticia_detalhe(request, id):
     noticia = Noticia.objects.get(pk = id)
+    outras_noticias = Noticia.objects.filter(tema=noticia.tema).exclude(id=noticia.id).order_by('-data')[:3]
     contexto = {
         'noticia' : noticia,
+        'outras_noticias' : outras_noticias,
     }
     return render(request, 'portal/noticia_detalhe.html', contexto)
