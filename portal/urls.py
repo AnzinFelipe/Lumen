@@ -1,9 +1,11 @@
 from django.urls import path
 from . import views
 from django.contrib.auth import views as auth_views
+from .views import HomeView
 
 urlpatterns = [
-    path('', views.home, name = 'home'),
+    #path('', views.home, name = 'home'),
+    path('', HomeView.as_view(), name="home"),
     path('criar_noticia', views.criar_noticia, name = 'criar_noticia'),
     path('login/', auth_views.LoginView.as_view(template_name='portal/login.html'), name='login'),
     path('esportes/', views.esportes, name = 'esportes'),
