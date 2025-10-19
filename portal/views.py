@@ -6,12 +6,19 @@ from rolepermissions.roles import assign_role
 from rolepermissions.decorators import has_permission_decorator
 from portal.models import Noticia
 from .forms import NoticiaForm
+from django.views.generic import ListView, DetailView
+from .models import Noticia
 
 
 # Create your views here.
 
-def home(request):
-    return render(request, 'portal/home.html')
+#def home(request):
+    #return render(request, 'portal/home.html')
+
+class HomeView(ListView):
+    model = Noticia
+    template_name = 'portal/home.html'  
+    context_object_name = 'noticias'
 
 @has_permission_decorator('pode_publicar')
 def criar_noticia(request):

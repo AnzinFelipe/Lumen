@@ -3,5 +3,11 @@
 {% block conteudo %}
     <a href = "criar_noticia">Criar uma notícia</a>
     <a href = "login">Login</a>
+    <ul>
+    {%for noticia in object_list%}
+        <li>{{ noticia.titulo}} - {{ noticia.autor}}<br/>
+        {{ noticia.texto}}</li>
+    {% endfor%}
+    </ul>
     
 {% endblock conteudo %}
