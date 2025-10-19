@@ -28,8 +28,12 @@ SECRET_KEY = 'django-insecure-b*y_52=!#%rayw(hzl6+iir0&@gb34=@30q)ta6az=q=*ke!^t
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG', 'True') == 'True'
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = [
+    'lumen-kappa-flame.vercel.app',
+    '.vercel.app',
+    'localhost',
+    '127.0.0.1'
+]
 
 # Application definition
 
