@@ -1,6 +1,7 @@
 from django.shortcuts import redirect, render
 from portal.forms import NoticiaForm
 from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login
 from django.http import HttpResponse
 from rolepermissions.roles import assign_role
 from rolepermissions.decorators import has_permission_decorator
@@ -19,6 +20,23 @@ class HomeView(ListView):
     model = Noticia
     template_name = 'portal/home.html'  
     context_object_name = 'noticias'
+
+def Login(request):
+    if request.user.is_authenticated:
+        return redirect('home')
+
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('home')
+        else:
+            return render(request, 'portal/login.html', {'error': 'Usuário não encontrado ou senha incorreta.'})
+
+    return render(request, 'portal/login.html')
+
 
 @has_permission_decorator('pode_publicar')
 def criar_noticia(request):
