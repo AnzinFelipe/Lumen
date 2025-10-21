@@ -7,19 +7,22 @@ from rolepermissions.roles import assign_role
 from rolepermissions.decorators import has_permission_decorator
 from portal.models import Noticia
 from .forms import NoticiaForm
-from django.views.generic import ListView, DetailView
 from .models import Noticia
 
 
 # Create your views here.
 
-#def home(request):
-    #return render(request, 'portal/home.html')
+def home(request):
+    return render(request, 'portal/home.html')
 
-class HomeView(ListView):
-    model = Noticia
-    template_name = 'portal/home.html'  
-    context_object_name = 'noticias'
+
+def noticia_list(request):
+    template_name = 'portal/noticia-list.html'
+    noticias = Noticia.objects.all()
+    context = {
+        'noticias': noticias
+    }
+    return render(request, template_name, context)
 
 def Login(request):
     if request.user.is_authenticated:
