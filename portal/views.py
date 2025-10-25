@@ -7,7 +7,7 @@ from rolepermissions.roles import assign_role
 from rolepermissions.decorators import has_permission_decorator
 from portal.models import Noticia
 from .forms import NoticiaForm
-from .models import Noticia
+from .models import Noticia, Comentario
 
 
 # Create your views here.
@@ -75,9 +75,17 @@ def economia(request):
 
 def noticia_detalhe(request, id):
     noticia = Noticia.objects.get(pk = id)
+    comentarios = Comentario.objects.filter(coment_noticia = noticia).order_by("-data")
     outras_noticias = Noticia.objects.filter(tema=noticia.tema).exclude(id=noticia.id).order_by('-data')[:3]
     contexto = {
         'noticia' : noticia,
+        'comentarios' : comentarios,
         'outras_noticias' : outras_noticias,
     }
+    if request.method == 'POST':
+        texto = request.POST.get('texto')
+        noticia_novo_coment = noticia
+        novo_comentario = Comentario(texto = texto, coment_noticia = noticia_novo_coment)
+        novo_comentario.save()
+        return redirect('home')
     return render(request, 'portal/noticia_detalhe.html', contexto)
