@@ -10,6 +10,25 @@
         </small>
     </div>
 
+    <div class = "criar_comentario">
+        <form class = "coment_form" method = "POST" action = "{% url 'noticia_detalhe' noticia.id %}">
+            {% csrf_token %}
+            <label for = "texto">Deixe seu comentário:</label>
+            <textarea name="texto" id="texto" required></textarea>
+            <button type= "submit">Publicar</button>
+            {% if erro %}
+                <p style="color:red;">{{ erro }}</p>
+            {% endif %}
+        </form>
+    </div>
+
+    <div class = "comentarios">
+        {% for comentario in comentarios %}
+            <p>{{ comentario.texto }}</p>
+            <p>Feito em: {{ comentario.data }}</p>
+        {% endfor %}
+    </div>
+
     <h2>Leia Mais</h2>
     <div class = "mais_noticias">
         {% if outras_noticias %}

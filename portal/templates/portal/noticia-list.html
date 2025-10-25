@@ -1,0 +1,11 @@
+{% extends 'portal/base.html' %}
+{% block title %}Lista Notícias{%endblock%}
+
+{% block content %}
+    <h1>Todas as notícias</h1>
+
+    {% for noticia in noticias %}
+        <p>{{noticia.titulo}}</p>
+    {% endfor %}
+
+{% endblock content%}

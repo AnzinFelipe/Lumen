@@ -7,19 +7,22 @@ from rolepermissions.roles import assign_role
 from rolepermissions.decorators import has_permission_decorator
 from portal.models import Noticia
 from .forms import NoticiaForm
-from django.views.generic import ListView, DetailView
-from .models import Noticia
+from .models import Noticia, Comentario
 
 
 # Create your views here.
 
-#def home(request):
-    #return render(request, 'portal/home.html')
+def home(request):
+    return render(request, 'portal/home.html')
 
-class HomeView(ListView):
-    model = Noticia
-    template_name = 'portal/home.html'  
-    context_object_name = 'noticias'
+
+def noticia_list(request):
+    template_name = 'portal/noticia-list.html'
+    noticias = Noticia.objects.all()
+    context = {
+        'noticias': noticias
+    }
+    return render(request, template_name, context)
 
 def Login(request):
     if request.user.is_authenticated:
@@ -72,9 +75,17 @@ def economia(request):
 
 def noticia_detalhe(request, id):
     noticia = Noticia.objects.get(pk = id)
+    comentarios = Comentario.objects.filter(coment_noticia = noticia).order_by("-data")
     outras_noticias = Noticia.objects.filter(tema=noticia.tema).exclude(id=noticia.id).order_by('-data')[:3]
     contexto = {
         'noticia' : noticia,
+        'comentarios' : comentarios,
         'outras_noticias' : outras_noticias,
     }
+    if request.method == 'POST':
+        texto = request.POST.get('texto')
+        noticia_novo_coment = noticia
+        novo_comentario = Comentario(texto = texto, coment_noticia = noticia_novo_coment)
+        novo_comentario.save()
+        return redirect('home')
     return render(request, 'portal/noticia_detalhe.html', contexto)

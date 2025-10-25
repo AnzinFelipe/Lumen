@@ -17,5 +17,8 @@ class Noticia(models.Model):
     def __str__(self):
         return f"{self.titulo}"
     
-
+class Comentario(models.Model):
+    coment_noticia = models.ForeignKey(Noticia, on_delete = models.CASCADE)
+    texto = models.TextField(blank = False)
+    data = models.DateTimeField("Publicado em: ", auto_now_add = True)
     
