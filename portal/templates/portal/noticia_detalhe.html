@@ -26,7 +26,7 @@
         {% for comentario in comentarios %}
             <p>{{ comentario.texto }}</p>
             <p>Feito em: {{ comentario.data }}</p>
-            <p>Feito por: {{ comentario.usuario.username }}</p>
+            <p>Feito por: {% if comentario.usuario %}{{ comentario.usuario.username }}</p>
         {% endfor %}
     </div>
 

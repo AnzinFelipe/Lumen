@@ -141,6 +141,7 @@ def noticia_detalhe(request, id):
         if not request.user.is_authenticated:
             return redirect('registrar')
         else:
+            novo_comentario.usuario = request.user
             novo_comentario.save()
             return redirect('home')
     return render(request, 'portal/noticia_detalhe.html', contexto)
