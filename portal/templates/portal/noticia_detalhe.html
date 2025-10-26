@@ -11,15 +11,15 @@
     </div>
 
     <div class = "criar_comentario">
-        <form class = "coment_form" method = "POST" action = "{% url 'noticia_detalhe' noticia.id %}">
-            {% csrf_token %}
-            <label for = "texto">Deixe seu comentário:</label>
-            <textarea name="texto" id="texto" required></textarea>
-            <button type= "submit">Publicar</button>
-            {% if erro %}
-                <p style="color:red;">{{ erro }}</p>
-            {% endif %}
-        </form>
+            <form class = "coment_form" method = "POST" action = "{% url 'noticia_detalhe' noticia.id %}">
+                {% csrf_token %}
+                <label for = "texto">Deixe seu comentário:</label>
+                <textarea name="texto" id="texto" required></textarea>
+                <button type= "submit">Publicar</button>
+                {% if erro %}
+                    <p style="color:red;">{{ erro }}</p>
+                {% endif %}
+            </form>
     </div>
 
     <div class = "comentarios">
