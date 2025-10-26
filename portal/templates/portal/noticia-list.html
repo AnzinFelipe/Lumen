@@ -1,11 +1,17 @@
 {% extends 'portal/base.html' %}
-{% block title %}Lista Notícias{%endblock%}
 
-{% block content %}
+{% block conteudo %}
     <h1>Todas as notícias</h1>
+    {% if user.is_authenticated %}
+        <p>Bem-vindo, {{ user.username }}!</p>
+    {% endif %}
 
+    <ul>
     {% for noticia in noticias %}
-        <p>{{noticia.titulo}}</p>
+        <li><a href="{% url 'noticia_detalhe' noticia.id %}">{{ noticia.titulo }}</a></li>
+    {% empty %}
+        <li>Nenhuma notícia encontrada.</li>
     {% endfor %}
+    </ul>
 
-{% endblock content%}
+{% endblock conteudo %}
