@@ -25,8 +25,10 @@
     <div class = "comentarios">
         {% for comentario in comentarios %}
             <p>{{ comentario.texto }}</p>
-            <p>Feito em: {{ comentario.data }}</p>
-            <p>Feito por: {% if comentario.usuario %}{{ comentario.usuario.username }}</p>
+            <p>Publicado em: {{ comentario.data|date:"d/m/Y H:i" }}</p>
+            {% if comentario.usuario %}
+                <p>Por: {{ comentario.usuario.username }}</p>
+            {% endif %}
         {% endfor %}
     </div>
 
