@@ -46,6 +46,6 @@ describe('Fluxo do usuário', () => {
     cy.criarUsuario();
     cy.fazerLogin();
     
-    cy.contains('Todas as notícias').should('be.visible');
+    cy.contains('Noticias').should('be.visible');
   });
 });
