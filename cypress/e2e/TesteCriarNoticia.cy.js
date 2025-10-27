@@ -7,7 +7,7 @@ Cypress.Commands.add('fazerLogin', () => {
   cy.url().should('not.include', '/accounts/login/');
 });
 
-Cypress.Commands.add('postarTema', () => {
+Cypress.Commands.add('criarComentario', () => {
     cy.visit('http://127.0.0.1:8000/criar_noticia/');
     
     cy.get('#id_titulo').type('Teste de Notícia');
@@ -20,13 +20,21 @@ Cypress.Commands.add('postarTema', () => {
     
     cy.url().should('eq', 'http://127.0.0.1:8000/');
     cy.contains('Teste de Notícia').should('be.visible');
-    
-    cy.visit('http://127.0.0.1:8000/esportes/');
-    cy.contains('Teste de Notícia').should('be.visible');
+    cy.contains('Teste de Notícia').click();
+
+    cy.get('#id_texto').type('comentário teste.');
+    cy.get('button[type="submit"]').click();
+
+    cy.contains('Teste de Notícia').click();
 });
 
-  it('deve criar notícia e checar se ela existe na url do tema', () => {
+describe('Fluxo do usuário', () => {
+  before(() => {
     cy.fazerLogin();
-    cy.postarTema();
-    
   });
+
+  it('deve criar um comentario', () => {
+    cy.criarComentario();
+    cy.contains('comentário teste.').should('be.visible');
+  });
+});
