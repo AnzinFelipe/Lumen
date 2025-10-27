@@ -19,6 +19,7 @@ class Noticia(models.Model):
     autor = models.CharField(max_length=50, blank = False)
     data = models.DateTimeField("Publicado em: ", auto_now_add = True)
     tema = models.ForeignKey(Tema, on_delete = models.CASCADE)
+    visualizacoes = models.IntegerField(default=0)
 
     def __str__(self):
         return f"{self.titulo}"

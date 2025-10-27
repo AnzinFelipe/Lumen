@@ -13,7 +13,15 @@ from django.db import IntegrityError
 # Create your views here.
 
 def home(request):
-    return render(request, 'portal/home.html')
+    noticias = Noticia.objects.all().order_by('-data')
+    noticias_populares = get_noticias_populares()
+    print("Quantidade de notícias:", noticias.count())  
+    print("Notícias:", [n.titulo for n in noticias])  
+    print("Notícias populares:", [n.titulo for n in noticias_populares])  
+    return render(request, 'portal/home.html', {
+        'noticias': noticias,
+        'noticias_populares': noticias_populares
+    })
 
 
 def noticia_list(request):
@@ -90,10 +98,16 @@ def Login(request):
     return render(request, 'registration/login.html')
 
 
-@has_permission_decorator('pode_publicar')
 def criar_noticia(request):
     if request.method == 'GET':
         form = NoticiaForm()
+        from .models import Tema
+        if not Tema.objects.exists():
+            temas = ['Esportes', 'Política', 'Economia', 'Tecnologia', 'Entretenimento']
+            for tema_nome in temas:
+                Tema.objects.create(tema=tema_nome)
+            print("Temas padrão criados!")
+        
         contexto = {
             'form': form
         }
@@ -101,35 +115,55 @@ def criar_noticia(request):
     else:
         form = NoticiaForm(request.POST)
         if form.is_valid():
-            form.save()
-        return redirect('home')
+            noticia = form.save()
+            print(f"Notícia '{noticia.titulo}' criada com sucesso!")
+            return redirect('home')
+        else:
+            print("Erros no formulário:", form.errors)
+            return render(request, 'portal/criar_noticia.html', {'form': form})
     
 def esportes(request):
     noticias = Noticia.objects.all().order_by('-data')
-
-    contexto = {'noticias': noticias}
+    noticias_populares = get_noticias_populares()
+    contexto = {
+        'noticias': noticias,
+        'noticias_populares': noticias_populares
+    }
     return render(request, 'portal/esportes.html', contexto)
 
 def politica(request):
     noticias = Noticia.objects.all().order_by('-data')
-
-    contexto = {'noticias': noticias}
+    noticias_populares = get_noticias_populares()
+    contexto = {
+        'noticias': noticias,
+        'noticias_populares': noticias_populares
+    }
     return render(request, 'portal/politica.html', contexto)
 
 def economia(request):
     noticias = Noticia.objects.all().order_by('-data')
-
-    contexto = {'noticias': noticias}
+    noticias_populares = get_noticias_populares()
+    contexto = {
+        'noticias': noticias,
+        'noticias_populares': noticias_populares
+    }
     return render(request, 'portal/economia.html', contexto)
+
+def get_noticias_populares():
+    return Noticia.objects.order_by('-visualizacoes')[:3]
 
 def noticia_detalhe(request, id):
     noticia = Noticia.objects.get(pk = id)
+    noticia.visualizacoes += 1
+    noticia.save()
     comentarios = Comentario.objects.filter(coment_noticia = noticia).order_by("-data")
     outras_noticias = Noticia.objects.filter(tema=noticia.tema).exclude(id=noticia.id).order_by('-data')[:3]
+    noticias_populares = get_noticias_populares()
     contexto = {
         'noticia' : noticia,
         'comentarios' : comentarios,
         'outras_noticias' : outras_noticias,
+        'noticias_populares': noticias_populares
     }
     if request.method == 'POST':
         texto = request.POST.get('texto')

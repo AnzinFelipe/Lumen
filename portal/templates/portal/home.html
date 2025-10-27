@@ -1,12 +1,52 @@
 {% extends "portal/base.html" %}
 
 {% block conteudo %}
-    <a href = "criar_noticia">Criar uma notícia</a>
-    <a href = "login">Login</a>
-    <ul>
-    {% for noticia in noticias %}
-        <p>{{noticia.titulo}}</p>
-    {% endfor %}
-    </ul>
-    
+    <div class="row mb-4">
+        <div class="col">
+            <h2>Noticias</h2>
+        </div>
+        <div class="col text-end">
+            <a href="{% url 'criar_noticia' %}" class="btn btn-primary">Criar uma notícia</a>
+            <a href="{% url 'login' %}" class="btn btn-outline-primary">Login</a>
+        </div>
+    </div>
+
+    {% if not noticias %}
+        <div class="alert alert-info">
+            Nenhuma notícia encontrada. Clique em "Criar uma notícia" para adicionar a primeira notícia!
+        </div>
+    {% else %}
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="card-title">{{ noticias.0.titulo }}</h3>
+                        <h6 class="card-subtitle mb-2 text-muted">{{ noticias.0.subtitulo }}</h6>
+                        <p class="card-text">{{ noticias.0.texto|truncatewords:50 }}</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <small class="text-muted">{{ noticias.0.data|date:"d/m/Y H:i" }}</small>
+                            <a href="{% url 'noticia_detalhe' noticias.0.id %}" class="btn btn-primary">Ler mais</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            {% for noticia in noticias|slice:"1:" %}
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ noticia.titulo }}</h5>
+                            <p class="card-text">{{ noticia.subtitulo }}</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <small class="text-muted">{{ noticia.data|data:"d/m/Y" }}</small>
+                                <a href="{% url 'noticia_detalhe' noticia.id %}" class="btn btn-sm btn-outline-primary">Ler mais</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
 {% endblock conteudo %}
