@@ -19,13 +19,20 @@ Cypress.Commands.add('criarComentario', () => {
     cy.contains('button', 'Criar Notícia').click();
     
     cy.url().should('eq', 'http://127.0.0.1:8000/');
-    cy.contains('Teste de Notícia').should('be.visible');
-    cy.contains('Teste de Notícia').click();
+    cy.contains('Ler mais').should('be.visible');
+    cy.contains('Ler mais').click();
 
-    cy.get('#id_texto').type('comentário teste.');
-    cy.get('button[type="submit"]').click();
+    cy.url().should('include', '/noticia_detalhe/');
+    
+    cy.get('.criar_comentario textarea[name="texto"]')
+      .should('be.visible')
+      .type('comentário teste.');
+    
+    cy.get('.coment_form button[type="submit"]').click();
+    cy.contains('Ler mais').should('be.visible');
+    cy.contains('Ler mais').click();
 
-    cy.contains('Teste de Notícia').click();
+    cy.contains('comentário teste.').should('be.visible');
 });
 
 describe('Fluxo do usuário', () => {
