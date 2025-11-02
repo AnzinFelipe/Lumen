@@ -8,6 +8,8 @@ urlpatterns = [
     path('esportes/', views.esportes, name='esportes'),
     path('economia/', views.economia, name='economia'),
     path('politica/', views.politica, name='politica'),
+    path('entretenimento/', views.entretenimento, name='entretenimento'),
+    path('tecnologia/', views.tecnoloquia, name='tecnologia'),
     path('noticia_detalhe/<int:id>', views.noticia_detalhe, name='noticia_detalhe'),
     path('registrar/', views.registrar, name='registrar'),
 ]

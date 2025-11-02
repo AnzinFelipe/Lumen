@@ -1,0 +1,20 @@
+{% extends "portal/base.html" %}
+
+{% block conteudo %}
+    {% if noticias %}
+        {% for noticia in noticias %}
+            {% if noticia.tema.tema == "Tecnologia" %}
+                <div>
+                    <a href="/noticia_detalhe/{{ noticia.id }}"><h3>{{ noticia.titulo }}</h3></a>
+                    <h4>{{ noticia.subtitulo }}</h4>
+                    <p class="opacidade">{{ noticia.texto }}</p>
+                    <small>
+                        Por {{ noticia.autor }} em {{ noticia.data|date:"d/m/Y" }}
+                    </small>
+                </div>
+            {% endif %}
+        {% endfor %}
+    {% else %}
+        <p>Nenhuma notícia encontrada</p>
+    {% endif %}
+{% endblock conteudo %}
