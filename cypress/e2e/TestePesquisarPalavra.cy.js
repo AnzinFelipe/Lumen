@@ -10,7 +10,7 @@ Cypress.Commands.add('fazerLogin', () => {
 Cypress.Commands.add('postarTema', () => {
   cy.visit('http://127.0.0.1:8000/criar_noticia/');
   
-  cy.get('#titulo').type('Teste de Notícia');
+  cy.get('#titulo').type('Brasil entra em crise');
   cy.get('#subtitulo').type('Subtítulo do Teste de Notícia');
   cy.get('#texto').type('Texto do Teste de Notícia');
   cy.get('#autor').type('CesarSchool');
@@ -22,18 +22,16 @@ Cypress.Commands.add('postarTema', () => {
   cy.contains('Teste de Notícia').should('be.visible');
 });
 
-Cypress.Commands.add('verificarNoticiaNaPaginaEsportes', () => {
-  cy.visit('http://127.0.0.1:8000/esportes/');
-  
-  cy.get('h3').contains('Teste de Notícia').should('be.visible');
-  
-  cy.contains('Subtítulo do Teste de Notícia').should('be.visible');
-  
-  cy.contains('Por CesarSchool').should('be.visible');
+Cypress.Commands.add('PesquisarPalavra', () => {
+    cy.get('input[placeholder="Pesquisar notícias"]').type('crise');
+    cy.get('button[type="submit"]').click();
+    cy.wait(2000);
+    cy.contains('Brasil entra em crise').should('be.visible'); 
+
 });
 
-it('deve criar notícia e checar se ela existe na página de Esportes', () => {
+it('deve criar notícia e checar se ela está visível ao pesquisar palavra chave', () => {
   cy.fazerLogin();
   cy.postarTema();
-  cy.verificarNoticiaNaPaginaEsportes();
+  cy.PesquisarPalavra();
 });

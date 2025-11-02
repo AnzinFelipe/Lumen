@@ -24,7 +24,7 @@ Cypress.Commands.add('criarUsuario', () => {
   cy.get('#senhaconfirmar').type('12345678');
 
   cy.get('button[type="submit"]').click();
-
+  cy.wait(2000);
   cy.url().should('not.include', '/registrar/');
 });
 
@@ -45,7 +45,6 @@ describe('Fluxo do usuário', () => {
   it('deve criar um usuario e fazer login no site', () => {
     cy.criarUsuario();
     cy.fazerLogin();
-    
     cy.contains('Noticias').should('be.visible');
   });
 });

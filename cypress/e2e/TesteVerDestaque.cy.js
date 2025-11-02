@@ -10,11 +10,11 @@ Cypress.Commands.add('fazerLogin', () => {
 Cypress.Commands.add('postarTema', () => {
   cy.visit('http://127.0.0.1:8000/criar_noticia/');
   
-  cy.get('#id_titulo').type('Teste de Notícia');
-  cy.get('#id_subtitulo').type('Subtítulo do Teste de Notícia');
-  cy.get('#id_texto').type('Texto do Teste de Notícia');
-  cy.get('#id_autor').type('CesarSchool');
-  cy.get('#id_tema').select('Esportes');
+  cy.get('#titulo').type('Teste de Notícia');
+  cy.get('#subtitulo').type('Subtítulo do Teste de Notícia');
+  cy.get('#texto').type('Texto do Teste de Notícia');
+  cy.get('#autor').type('CesarSchool');
+  cy.get('#tema').select('Esportes');
   
   cy.contains('button', 'Criar Notícia').click();
   
