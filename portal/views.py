@@ -9,7 +9,7 @@ from portal.models import Noticia
 from .forms import NoticiaForm
 from .models import Noticia, Comentario, Perfil
 from django.db import IntegrityError
-
+from portal.models import Tema
 # Create your views here.
 
 def home(request):
@@ -92,35 +92,50 @@ def Login(request):
             login(request, user)
             return redirect('home')
         else:
-            return render(request, 'login.html', {
+            return render(request, 'registration/login.html', {
                 'errors': ['Nome de usuário ou senha incorretos.']
             })
     return render(request, 'registration/login.html')
 
 
 def criar_noticia(request):
-    if request.method == 'GET':
-        form = NoticiaForm()
-        from .models import Tema
-        if not Tema.objects.exists():
-            temas = ['Esportes', 'Política', 'Economia', 'Tecnologia', 'Entretenimento']
-            for tema_nome in temas:
-                Tema.objects.create(tema=tema_nome)
-            print("Temas padrão criados!")
+    if request.method == 'POST':
+        titulo = request.POST.get('titulo')
+        subtitulo = request.POST.get('subtitulo')
+        texto = request.POST.get('texto')
+        autor = request.POST.get('autor')
+        tema_id = request.POST.get('tema')
         
-        contexto = {
-            'form': form
-        }
-        return render(request, 'portal/criar_noticia.html', contexto)
-    else:
-        form = NoticiaForm(request.POST)
-        if form.is_valid():
-            noticia = form.save()
-            print(f"Notícia '{noticia.titulo}' criada com sucesso!")
-            return redirect('home')
+        if not all([titulo, subtitulo, texto, autor, tema_id]):
+            erro = "Todos os campos são obrigatórios!"
+        elif len(titulo) > 100:
+            erro = "O título deve ter no máximo 100 caracteres!"
+        elif len(subtitulo) > 200:
+            erro = "O subtítulo deve ter no máximo 200 caracteres!"
+        elif len(autor) > 50:
+            erro = "O autor deve ter no máximo 50 caracteres!"
         else:
-            print("Erros no formulário:", form.errors)
-            return render(request, 'portal/criar_noticia.html', {'form': form})
+            try:
+                tema = Tema.objects.get(id=tema_id)
+                Noticia.objects.create(
+                    titulo=titulo,
+                    subtitulo=subtitulo,
+                    texto=texto,
+                    autor=autor,
+                    tema=tema
+                )
+                return redirect('home')
+            except Tema.DoesNotExist:
+                erro = "Tema selecionado é inválido!"
+        
+        return render(request, 'portal/criar_noticia.html', {
+            'todas_temas': Tema.objects.all(),
+            'erro': erro
+        })
+    
+    return render(request, 'portal/criar_noticia.html', {
+        'todas_temas': Tema.objects.all()
+    })
     
 def esportes(request):
     noticias = Noticia.objects.all().order_by('-data')
@@ -148,6 +163,24 @@ def economia(request):
         'noticias_populares': noticias_populares
     }
     return render(request, 'portal/economia.html', contexto)
+
+def entretenimento(request):
+    noticias = Noticia.objects.all().order_by('-data')
+    noticias_populares = get_noticias_populares()
+    contexto = {
+        'noticias': noticias,
+        'noticias_populares': noticias_populares
+    }
+    return render(request, 'portal/entretenimento.html', contexto)
+
+def tecnoloquia(request):
+    noticias = Noticia.objects.all().order_by('-data')
+    noticias_populares = get_noticias_populares()
+    contexto = {
+        'noticias': noticias,
+        'noticias_populares': noticias_populares
+    }
+    return render(request, 'portal/tecnologia.html', contexto)
 
 def get_noticias_populares():
     return Noticia.objects.order_by('-visualizacoes')[:3]

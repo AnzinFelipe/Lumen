@@ -7,9 +7,6 @@
         {%for noticia in noticia%}
             <li><a href="{% url 'noticia_detalhe' noticia.id %}">{{ noticia.titulo }}</a></li>
         {%endfor%}
-
-
-
     {%else%}
         <h1>Nada foi pesquisado...</h1>
     {%endif%} 

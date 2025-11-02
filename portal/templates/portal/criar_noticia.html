@@ -1,46 +1,40 @@
 {% extends "portal/base.html" %}
+{% load static %}
+
+
+{% block criar %} Criar Notícia {% endblock %}
 
 {% block conteudo %}
-<div class="container">
-    <h1 class="mb-4">Criar Nova Notícia</h1>
-
-    {% if form.errors %}
-    <div class="alert alert-danger">
-        <h4 class="alert-heading">Por favor, corrija os seguintes erros:</h4>
-        <ul>
-            {% for field in form %}
-                {% for error in field.errors %}
-                    <li>{{ field.label }}: {{ error }}</li>
-                {% endfor %}
-            {% endfor %}
-        </ul>
-    </div>
-    {% endif %}
-
-    <form method="post" class="needs-validation" novalidate>
+    
+    <form method="POST" class="formulario">
         {% csrf_token %}
         
-        {% for field in form %}
-        <div class="mb-3">
-            <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
-            {{ field.errors }}
-            {% if field.name == 'texto' %}
-                <textarea name="{{ field.name }}" class="form-control" rows="5" required>{{ field.value|default:'' }}</textarea>
-            {% else %}
-                <input type="{{ field.field.widget.input_type|default:'text' }}" 
-                       name="{{ field.name }}" 
-                       class="form-control" 
-                       value="{{ field.value|default:'' }}"
-                       required>
-            {% endif %}
-            {% if field.help_text %}
-                <div class="form-text">{{ field.help_text }}</div>
-            {% endif %}
-        </div>
-        {% endfor %}
+        <label for="titulo" class="rotulo">Título:</label>
+        <input type="text" name="titulo" id="titulo" class="entrada" required>
 
-        <button type="submit" class="btn btn-primary">Criar Notícia</button>
-        <a href="{% url 'home' %}" class="btn btn-secondary">Cancelar</a>
+        <label for="subtitulo" class="rotulo">Subtítulo:</label>
+        <input type="text" name="subtitulo" id="subtitulo" class="entrada" required>
+
+        <label for="texto" class="rotulo">Texto:</label>
+        <textarea name="texto" id="texto" class="area descricao" required></textarea>
+
+        <label for="autor" class="rotulo">Autor:</label>
+        <input type="text" name="autor" id="autor" class="entrada" required>
+
+        <label for="tema" class="rotulo">Tema:</label>
+        <select name="tema" id="tema" class="entrada" required>
+            <option value="">Selecione um tema</option>
+            {% for tema in todas_temas %}
+            <option value="{{ tema.id }}">
+                {{ tema.tema }}
+            </option>
+            {% endfor %}
+        </select>
+
+        <button type="submit" class="botao">Criar Notícia</button>
+        
+        {% if erro %}
+            <p class="erro">{{ erro }}</p>
+        {% endif %}
     </form>
-</div>
-{% endblock conteudo %}
+{% endblock %}
