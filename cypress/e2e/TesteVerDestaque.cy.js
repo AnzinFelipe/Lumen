@@ -22,18 +22,18 @@ Cypress.Commands.add('postarTema', () => {
   cy.contains('Teste de Notícia').should('be.visible');
 });
 
-Cypress.Commands.add('verificarNoticiaNaPaginaEsportes', () => {
-  cy.visit('http://127.0.0.1:8000/esportes/');
+Cypress.Commands.add('verificarNoticiaNosDestaques', () => {
+  cy.visit('http://127.0.0.1:8000/');
   
-  cy.get('h3').contains('Teste de Notícia').should('be.visible');
+  cy.get('.card-header').contains('Mais Populares').should('be.visible');
   
-  cy.contains('Subtítulo do Teste de Notícia').should('be.visible');
-  
-  cy.contains('Por CesarSchool').should('be.visible');
+  cy.get('.card-body').first().within(() => {
+    cy.contains('Teste de Notícia').should('be.visible');
+  });
 });
 
-it('deve criar notícia e checar se ela existe na página de Esportes', () => {
+it('deve criar notícia e checar se ela existe na url do tema e nos destaques', () => {
   cy.fazerLogin();
   cy.postarTema();
-  cy.verificarNoticiaNaPaginaEsportes();
+  cy.verificarNoticiaNosDestaques();
 });
