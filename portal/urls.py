@@ -10,4 +10,5 @@ urlpatterns = [
     path('politica/', views.politica, name='politica'),
     path('noticia_detalhe/<int:id>', views.noticia_detalhe, name='noticia_detalhe'),
     path('registrar/', views.registrar, name='registrar'),
+    path('pesquisa/', views.pesquisa_noticia, name='pesquisa-noticia')
 ]

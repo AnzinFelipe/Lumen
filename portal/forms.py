@@ -12,5 +12,4 @@ class NoticiaForm(forms.ModelForm):
             'texto': forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Insira o texto da matéria'}),
             'autor': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Insira o nome do autor'}),
             'tema': forms.Select(attrs={'class': 'form-control'}),
-
         }

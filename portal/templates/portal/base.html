@@ -38,8 +38,9 @@
           <a class="nav-link disabled" aria-disabled="true">Disabled</a>
         </li>
       </ul>
-      <form class="d-flex" role="search">
-        <input class="form-control me-2" type="search" placeholder="Pesquisar" aria-label="Pesquisar"/>
+      <form class="d-flex" method=POST action="{%url 'pesquisa-noticia'%}">
+        {% csrf_token %}
+        <input class="form-control me-2" type="search" placeholder="Pesquisar notícias" aria-label="Pesquisar" name='objeto'>
         <button class="btn btn-outline-success" type="submit">Pesquisar</button>
       </form>
     </div>

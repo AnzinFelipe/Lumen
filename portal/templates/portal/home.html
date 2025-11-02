@@ -40,7 +40,7 @@
                             <h5 class="card-title">{{ noticia.titulo }}</h5>
                             <p class="card-text">{{ noticia.subtitulo }}</p>
                             <div class="d-flex justify-content-between align-items-center">
-                                <small class="text-muted">{{ noticia.data|data:"d/m/Y" }}</small>
+                                <small class="text-muted">{{ noticia.data|date:"d/m/Y" }}</small>
                                 <a href="{% url 'noticia_detalhe' noticia.id %}" class="btn btn-sm btn-outline-primary">Ler mais</a>
                             </div>
                         </div>

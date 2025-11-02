@@ -176,3 +176,11 @@ def noticia_detalhe(request, id):
             novo_comentario.save()
             return redirect('home')
     return render(request, 'portal/noticia_detalhe.html', contexto)
+
+def pesquisa_noticia(request):
+    if request.method=='POST':
+        objeto = request.POST['objeto']
+        noticia = Noticia.objects.filter(titulo__contains=objeto)
+        return render(request,'portal/pesquisa.html', {'objeto': objeto, 'noticia': noticia})
+    else:
+        return render(request,'pesquisa.html')
