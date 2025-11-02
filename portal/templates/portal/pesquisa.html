@@ -2,7 +2,7 @@
 
 {%block conteudo%}
     {%if objeto%}
-        <h1>Resultado da pesquisa... :p {{objeto}}</h1>
+        <h1>Resultado da pesquisa {{objeto}}</h1>
 
         {%for noticia in noticia%}
             <li><a href="{% url 'noticia_detalhe' noticia.id %}">{{ noticia.titulo }}</a></li>

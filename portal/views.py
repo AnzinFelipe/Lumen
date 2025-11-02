@@ -173,7 +173,7 @@ def entretenimento(request):
     }
     return render(request, 'portal/entretenimento.html', contexto)
 
-def tecnoloquia(request):
+def tecnologia(request):
     noticias = Noticia.objects.all().order_by('-data')
     noticias_populares = get_noticias_populares()
     contexto = {
