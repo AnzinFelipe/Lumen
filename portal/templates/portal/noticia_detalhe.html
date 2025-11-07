@@ -1,6 +1,8 @@
 {% extends "portal/base.html" %}
+{% load static %}
 
 {% block conteudo %}
+    <link rel="stylesheet" href="{% static 'portal/css/noticia_detalhe.css' %}">
     <div class = "noticia">
         <h3>{{ noticia.titulo }}</h3>
         <h4>{{ noticia.subtitulo }}</h4>
@@ -14,7 +16,7 @@
             <form class = "coment_form" method = "POST" action = "{% url 'noticia_detalhe' noticia.id %}">
                 {% csrf_token %}
                 <label for = "texto">Deixe seu comentário:</label>
-                <textarea name="texto" id="texto" required></textarea>
+                <br><textarea name="texto" id="texto" required></textarea>
                 <button type= "submit">Publicar</button>
                 {% if erro %}
                     <p style="color:red;">{{ erro }}</p>

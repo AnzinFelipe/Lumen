@@ -5,7 +5,7 @@
 {% block criar %} Criar Notícia {% endblock %}
 
 {% block conteudo %}
-    
+    <link rel="stylesheet" href="{% static 'portal/css/criar_noticia.css' %}">
     <form method="POST" class="formulario">
         {% csrf_token %}
         
@@ -16,7 +16,7 @@
         <input type="text" name="subtitulo" id="subtitulo" class="entrada" required>
 
         <label for="texto" class="rotulo">Texto:</label>
-        <textarea name="texto" id="texto" class="area descricao" required></textarea>
+        <br><textarea name="texto" id="texto" class="area descricao" required></textarea><br>
 
         <label for="autor" class="rotulo">Autor:</label>
         <input type="text" name="autor" id="autor" class="entrada" required>
