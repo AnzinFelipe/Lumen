@@ -29,4 +29,16 @@ class Comentario(models.Model):
     texto = models.TextField(blank = False)
     data = models.DateTimeField("Publicado em: ", auto_now_add = True)
     usuario = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+
+class HistoricoLeitura(models.Model):
+    usuario = models.ForeignKey(User, on_delete = models.CASCADE)
+    noticia = models.ForeignKey(Noticia, on_delete = models.CASCADE)
+    tema = models.ForeignKey(Tema, on_delete = models.CASCADE)
+    data = models.DateTimeField("Lido em: ", auto_now_add = True)
+
+    def __str__(self):
+        return f"{self.usuario.username} - {self.noticia.titulo}"
+    
+
+
     

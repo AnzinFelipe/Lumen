@@ -1,0 +1,30 @@
+{% extends "portal/base.html" %}
+
+{% block conteudo %}
+<div class="row mb-4">
+    <div class="col">
+        <h2>Busca personalizada</h2>
+    </div>
+</div>
+
+{% if noticias %}
+    <div class="row">
+        {% for n in noticias %}
+            <div class="col-md-6 mb-3">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ n.titulo }}</h5>
+                        {% if n.subtitulo %}
+                            <p class="card-text">{{ n.subtitulo }}</p>
+                        {% endif %}
+                        <div class="d-flex justify-content-between align-items-center">
+                            <small class="text-muted">{{ n.data|date:"d/m/Y" }}</small>
+                            <a href="{% url 'noticia_detalhe' n.id %}" class="btn btn-sm btn-outline-primary">Ler mais</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
+{% endblock conteudo %}

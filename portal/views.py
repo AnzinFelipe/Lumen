@@ -7,7 +7,7 @@ from rolepermissions.roles import assign_role
 from rolepermissions.decorators import has_permission_decorator
 from portal.models import Noticia
 from .forms import NoticiaForm
-from .models import Noticia, Comentario, Perfil
+from .models import Noticia, Comentario, Perfil, HistoricoLeitura
 from django.db import IntegrityError
 from portal.models import Tema
 # Create your views here.
@@ -189,6 +189,15 @@ def noticia_detalhe(request, id):
     noticia = Noticia.objects.get(pk = id)
     noticia.visualizacoes += 1
     noticia.save()
+    try:
+        if request.user.is_authenticated:
+            HistoricoLeitura.objects.create(usuario = request.user,noticia = noticia,tema = noticia.tema)
+    except:
+        pass
+    hist = request.session.get('hist_temas', [])
+    hist.insert(0, noticia.tema_id)
+    request.session['hist_temas'] = hist[:10]
+    request.session.modified = True
     comentarios = Comentario.objects.filter(coment_noticia = noticia).order_by("-data")
     outras_noticias = Noticia.objects.filter(tema=noticia.tema).exclude(id=noticia.id).order_by('-data')[:3]
     noticias_populares = get_noticias_populares()
@@ -217,3 +226,38 @@ def pesquisa_noticia(request):
         return render(request,'portal/pesquisa.html', {'objeto': objeto, 'noticia': noticia})
     else:
         return render(request,'pesquisa.html')
+    
+def preferencias_por_tema(request, max_itens = 3):
+    if request.user.is_authenticated:
+        leituras = list(HistoricoLeitura.objects.filter(usuario = request.user).order_by('-data').values_list('tema_id', flat = True)[:100])
+    else: 
+        leituras = list(request.session.get('hist_temas', []))
+
+    if not leituras:
+        return[]
+    score = {}
+    peso = 1.0
+    for tema_id in leituras:
+        score[tema_id] = score.get(tema_id, 0) + peso
+        peso *= 0.95
+    
+    tema_ids = [t for t, _ in sorted(score.items(), key = lambda x: x[1], reverse = True)]
+    return tema_ids[:max_itens]
+
+def busca_personalizada(request):
+    preferidos = preferencias_por_tema(request, max_itens = 3)
+    exclude_id = request.GET.get('exclude')
+
+    noticias = Noticia.objects.none()
+    if preferidos:
+        qs = Noticia.objects.filter(tema_id__in = preferidos)
+        if exclude_id:
+            qs = qs.exclude(id = exclude_id)
+        noticias = qs.order_by('-visualizacoes', '-data', '-id')
+
+    contexto = {
+        'noticias': noticias,
+        'temas_preferidos': Tema.objects.filter(id__in = preferidos),
+        'noticias_populares': get_noticias_populares()
+    }
+    return render(request, 'portal/busca_personalizada.html', contexto)
