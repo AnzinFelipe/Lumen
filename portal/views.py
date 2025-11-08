@@ -1,12 +1,10 @@
 from django.shortcuts import redirect, render
-from portal.forms import NoticiaForm
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponse
 from rolepermissions.roles import assign_role
 from rolepermissions.decorators import has_permission_decorator
 from portal.models import Noticia
-from .forms import NoticiaForm
 from .models import Noticia, Comentario, Perfil, HistoricoLeitura
 from django.db import IntegrityError
 from portal.models import Tema
