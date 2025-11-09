@@ -32,7 +32,7 @@ Cypress.Commands.add('verificarNoticiaNosDestaques', () => {
   });
 });
 
-it('deve criar notícia e checar se ela existe na url do tema e nos destaques', () => {
+it('deve criar notícia e checar se ela existe na url dos temas e nos destaques', () => {
   cy.fazerLogin();
   cy.postarTema();
   cy.verificarNoticiaNosDestaques();
