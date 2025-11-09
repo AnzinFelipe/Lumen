@@ -3,7 +3,7 @@ Cypress.Commands.add('fazerLogin', () => {
   cy.get('#username').type('Cesar');
   cy.get('#password').type('123');
   cy.get('button[type="submit"]').click();
-
+  cy.wait(2000);
   cy.url().should('not.include', '/accounts/login/');
 });
 
