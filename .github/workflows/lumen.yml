@@ -24,10 +24,6 @@ jobs:
         with:
           python-version: '3.10'
 
-      - name: Criando ambiente virtual
-        run: |
-          python -m venv .venv
-          source .venv/bin/activate
 
       - name: Instalando dependências do projeto
         run: |
@@ -41,6 +37,16 @@ jobs:
         run: |
           python manage.py makemigrations
           python manage.py migrate
+      
+      - name: Criando temas necessários
+        run: |
+          python manage.py shell <<'PY'
+          from portal.models import Tema
+          temas = ['Esportes', 'Economia', 'Política']
+          for t in temas:
+              Tema.objects.get_or_create(tema=t)
+          print('Temas criados ou já existentes')
+          PY
       
       - name: Criando usuário de teste
         run: |
