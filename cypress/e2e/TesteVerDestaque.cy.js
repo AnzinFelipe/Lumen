@@ -1,22 +1,15 @@
 Cypress.Commands.add('fazerLogin', () => {
   cy.visit('http://127.0.0.1:8000/accounts/login/');
-  cy.get('#username').clear().type('Cesar');
-  cy.get('#password').clear().type('123');
+  cy.get('#username').type('Cesar');
+  cy.get('#password').type('123');
   cy.get('button[type="submit"]').click();
 
-  cy.url().then((url) => {
-    if (url.includes('/accounts/login/')) {
-      cy.visit('http://127.0.0.1:8000/registrar/');
-      cy.get('#username').clear().type('Cesar');
-      cy.get('#email').clear().type('cesar@example.com');
-      cy.get('#senha').clear().type('123');
-      cy.get('#senhaconfirmar').clear().type('123');
-      cy.get('button[type="submit"]').click();
-      cy.url().should('not.include', '/registrar/');
-    }
-  });
-
   cy.url().should('not.include', '/accounts/login/');
+});
+
+
+before(() => {
+  cy.fazerLogin();
 });
 
 Cypress.Commands.add('postarTema', () => {
@@ -44,8 +37,7 @@ Cypress.Commands.add('verificarNoticiaNosDestaques', () => {
   });
 });
 
-it('deve criar notícia e checar se ela existe na url dos temas e nos destaques', () => {
-  cy.fazerLogin();
+it('deve criar notícia e checar se ela existe na url do tema e nos destaques', () => {
   cy.postarTema();
   cy.verificarNoticiaNosDestaques();
 });
