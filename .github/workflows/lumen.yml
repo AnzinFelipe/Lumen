@@ -43,7 +43,7 @@ jobs:
       
       - name: Criando usuário de teste
         run: |
-          python manage.py shell <<'PY'
+          .venv/bin/python manage.py shell <<'PY'
           from django.contrib.auth import get_user_model
           User = get_user_model()
           username = "Cesar"
@@ -63,7 +63,7 @@ jobs:
           CYPRESS_USERNAME: Cesar
           CYPRESS_PASSWORD: 123
         with:
-          start: .venv/bin/python manage.py runserver 0.0.0.0:8000
+          start: .venv/bin/python manage.py runserver
           wait-on: 'http://localhost:8000'
           wait-on-timeout: 120
 
