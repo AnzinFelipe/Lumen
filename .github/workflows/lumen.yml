@@ -63,7 +63,7 @@ jobs:
           CYPRESS_USERNAME: Cesar
           CYPRESS_PASSWORD: 123
         with:
-          start: .venv/bin/python manage.py runserver 0.0.0.0:8000
+          start: bash -lc '${{ github.workspace }}/.venv/bin/python [manage.py](http://_vscodecontentref_/0) runserver 0.0.0.0:8000'
           wait-on: 'http://localhost:8000'
           wait-on-timeout: 120
 
