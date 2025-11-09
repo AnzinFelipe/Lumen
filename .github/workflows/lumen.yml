@@ -63,7 +63,7 @@ jobs:
           CYPRESS_USERNAME: Cesar
           CYPRESS_PASSWORD: 123
         with:
-          start: .venv/bin/python manage.py runserver
+          start: .venv/bin/python manage.py runserver 0.0.0.0:8000
           wait-on: 'http://localhost:8000'
           wait-on-timeout: 120
 
