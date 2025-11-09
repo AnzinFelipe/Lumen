@@ -42,6 +42,21 @@ jobs:
           python manage.py makemigrations
           python manage.py migrate
       
+      - name: Criando usuário de teste
+        run: |
+          python manage.py shell <<'PY'
+          from django.contrib.auth import get_user_model
+          User = get_user_model()
+          username = "usuarioteste"
+          email = "usuarioteste@example.com"
+          password = "SenhaTeste123!"
+          if not User.objects.filter(username=username).exists():
+              User.objects.create_user(username=username, email=email, password=password)
+              print("Usuário de teste criado")
+          else:
+              print("Usuário de teste já existe")
+          PY
+
       - name: Testes do Cypress
         uses: cypress-io/github-action@v6
         with:
