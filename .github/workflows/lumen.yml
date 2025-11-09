@@ -27,23 +27,24 @@ jobs:
       - name: Criando ambiente virtual
         run: |
           python -m venv .venv
+          source .venv/bin/activate
 
       - name: Instalando dependências do projeto
         run: |
-          .venv/bin/python -m pip install --upgrade pip
-          .venv/bin/pip install -r requirements.txt
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
 
       - name: Instalando dependências JS
         run: npm install
 
       - name: Migrando
         run: |
-          .venv/bin/python manage.py makemigrations
-          .venv/bin/python manage.py migrate
+          python manage.py makemigrations
+          python manage.py migrate
       
       - name: Criando usuário de teste
         run: |
-          .venv/bin/python manage.py shell <<'PY'
+          python manage.py shell <<'PY'
           from django.contrib.auth import get_user_model
           User = get_user_model()
           username = "Cesar"
