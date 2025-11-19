@@ -6,7 +6,7 @@
 
 {% block conteudo %}
     <link rel="stylesheet" href="{% static 'portal/css/criar_noticia.css' %}">
-    <form method="POST" class="formulario">
+    <form method="POST" class="formulario" enctype="multipart/form-data">
         {% csrf_token %}
         
         <label for="titulo" class="rotulo">Título:</label>
@@ -20,6 +20,9 @@
 
         <label for="autor" class="rotulo">Autor:</label>
         <input type="text" name="autor" id="autor" class="entrada" required>
+
+        <label for="capa" class="rotulo">capa:</label>
+        <input type="file" name="capa" id="capa" class="entrada" required>
 
         <label for="tema" class="rotulo">Tema:</label>
         <select name="tema" id="tema" class="entrada" required>

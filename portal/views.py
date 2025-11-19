@@ -103,6 +103,7 @@ def criar_noticia(request):
         texto = request.POST.get('texto')
         autor = request.POST.get('autor')
         tema_id = request.POST.get('tema')
+        capa = request.FILES.get('capa')
         
         if not all([titulo, subtitulo, texto, autor, tema_id]):
             erro = "Todos os campos são obrigatórios!"
@@ -120,8 +121,10 @@ def criar_noticia(request):
                     subtitulo=subtitulo,
                     texto=texto,
                     autor=autor,
-                    tema=tema
+                    tema=tema,
+                    capa=capa
                 )
+                
                 return redirect('home')
             except Tema.DoesNotExist:
                 erro = "Tema selecionado é inválido!"

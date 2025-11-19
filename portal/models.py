@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.conf import settings
 
 class Perfil(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
@@ -18,17 +19,21 @@ class Noticia(models.Model):
     texto = models.TextField(null = True, blank = False)
     autor = models.CharField(max_length=50, blank = False)
     data = models.DateTimeField("Publicado em: ", auto_now_add = True)
-    tema = models.ForeignKey(Tema, on_delete = models.CASCADE)
+    tema = models.ForeignKey(Tema, on_delete = models.CASCADE, related_name='noticias')
     visualizacoes = models.IntegerField(default=0)
+    capa = models.ImageField(upload_to='images/', blank=True, null=True)
 
     def __str__(self):
         return f"{self.titulo}"
     
 class Comentario(models.Model):
-    coment_noticia = models.ForeignKey(Noticia, on_delete = models.CASCADE)
+    coment_noticia = models.ForeignKey(Noticia, on_delete = models.CASCADE, related_name='comentarios')
     texto = models.TextField(blank = False)
     data = models.DateTimeField("Publicado em: ", auto_now_add = True)
-    usuario = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True, related_name='comentarios')
+
+    def __str__(self):
+        return f"{self.usuario.username if self.usuario else 'Anônimo'} - {self.coment_noticia.titulo}"
 
 class HistoricoLeitura(models.Model):
     usuario = models.ForeignKey(User, on_delete = models.CASCADE)
@@ -38,7 +43,6 @@ class HistoricoLeitura(models.Model):
 
     def __str__(self):
         return f"{self.usuario.username} - {self.noticia.titulo}"
-    
 
 
-    
+
