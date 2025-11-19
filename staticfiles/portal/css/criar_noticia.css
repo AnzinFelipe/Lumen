@@ -1,0 +1,43 @@
+input[type=text]{
+    width: 100%;
+    padding: 12px;
+    margin: 2px 0;
+    box-sizing: border-box;
+}
+
+textarea {
+    padding: 70px;
+    max-width: 500px;
+    line-height: 1.5;
+    border-radius: 5px;
+    border: 1px solid #cccccc;
+    box-shadow: 1px 1px 1px #999999;
+    text-align: left;
+}
+
+button {
+    padding: 7px;
+    background-color: dodgerblue;
+    border-radius: 50px;
+    border: 2px solid #63b0b8;
+    font-family: system-ui;
+    color: white;
+}
+
+select {
+  border: 2px solid #dddddd;
+  background: #eeeeee;
+  padding: 10px;
+  transition: 0.4s;
+}
+
+select:hover, select:focus {
+  background: #dddddd;
+}
+
+label {
+    color: black;
+    width: 20000px;
+    font-size: 25px;
+
+}
