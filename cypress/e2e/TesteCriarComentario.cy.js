@@ -15,7 +15,7 @@ Cypress.Commands.add('criarComentario', () => {
     cy.get('#texto').type('Texto do Teste de Notícia');
     cy.get('#autor').type('CesarSchool');
     cy.get('#tema').select('Esportes');
-    
+    cy.get('input[type="file"]#capa').selectFile('cypress/fixtures/imagem_teste.jpg', { force: true });
     cy.contains('button', 'Criar Notícia').click();
     
     cy.url().should('eq', 'http://127.0.0.1:8000/');
