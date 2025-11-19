@@ -2,6 +2,17 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.conf import settings
 
+try:
+    if getattr(settings, 'CLOUDINARY_API_KEY', None):
+        from cloudinary.models import CloudinaryField
+        def _image_field():
+            return CloudinaryField('images')
+    else:
+        raise ImportError()
+except Exception:
+    def _image_field():
+        return models.ImageField(upload_to='images/', blank=True, null=True)
+    
 class Perfil(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
     def __str__(self):
@@ -21,7 +32,7 @@ class Noticia(models.Model):
     data = models.DateTimeField("Publicado em: ", auto_now_add = True)
     tema = models.ForeignKey(Tema, on_delete = models.CASCADE, related_name='noticias')
     visualizacoes = models.IntegerField(default=0)
-    capa = models.ImageField(upload_to='images/', blank=True, null=True)
+    capa = _image_field()
 
     def __str__(self):
         return f"{self.titulo}"
