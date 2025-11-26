@@ -12,41 +12,66 @@
     {% block extra_css %}{% endblock %}
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="{% url 'home' %}">JC</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Início</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Dropdown
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
-          </ul>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-        </li>
-      </ul>
+  {% block header %}
+  <header>
+    <div id = "header_uol">
+        <div>
+          <ul>
+          <li><a href="https://www.uol.com.br" target = "_blanck"><img src="" alt="UOL imagem"></a></li>
+          <li><a href="https://www.ingresso.com" target = "_blanck">INGRESSO.COM</a></li>
+          <li><a href="https://uolhost.uol.com.br" target = "_blanck">UOL HOST</a></li>
+          <li><a href="https://pagbank.com.br" target = "_blanck">PAGBANK</a></li>
+          <li><a href="https://www.portaleducacao.com.br" target = "_blanck">CURSOS</a></li>
+          <li><a href="https://play.uol.com.br" target = "_blanck">UOL PLAY</a></li>
+          <li><a href="https://ads.uol.com.br" target = "_blanck">UOL ADS</a></li>
+        </ul>
+        </div>
+        <div>
+          <ul>
+          <li><a href="https://busca.uol.com.br" target = "_blanck">BUSCA</a></li>
+          <li><a href="https://batepapo.uol.com.br" target = "_blanck">BATE-PAPO</a></li>
+          <li><a href="https://email.uol.com.br" target = "_blanck">EMAIL</a></li>
+        </ul> 
+        </div>
+    </div>
+    <div id = "header_jc">
+      <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#">Início</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Dropdown
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="#">Action</a></li>
+                  <li><a class="dropdown-item" href="#">Another action</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" href="#">Something else here</a></li>
+                </ul>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+              </li>
+            </ul>
+          </div>  
+        </div>
+      </nav>
+      <a href = "{% url 'home' %} "><img src="media/images/logo_jc.png" alt="JC_Imagem"></a>
       <form class="d-flex" method=POST action="{%url 'pesquisa-noticia'%}">
         {% csrf_token %}
         <input class="form-control me-2" type="search" placeholder="Pesquisar notícias" aria-label="Pesquisar" name='objeto'>
         <button class="btn btn-outline-success" type="submit">Pesquisar</button>
       </form>
     </div>
-  </div>
-</nav>
-    {% block header %}{% endblock %}
+  </header>
+  {% endblock %}
 
     <br/>
     <div class="container">

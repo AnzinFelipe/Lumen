@@ -4,6 +4,38 @@
   box-sizing: border-box;
 }
 
+header #header_uol{
+  display: flex;
+  justify-content: space-around;
+  background-color: #262626;
+  padding: 10px;
+  font-size: small;
+  color: white;
+}
+
+header #header_uol ul{
+  display: flex;
+  margin: auto;
+  gap: 20px;
+  list-style: none;
+}
+
+header #header_uol a{
+  color: white;
+  text-decoration: none;
+}
+
+header #header_jc{
+  display: flex;
+  justify-content: space-around;
+  background-color: #2D54A4;
+  padding: 20px;
+}
+
+header #header_jc img {
+  height: 80.5px;
+  width: 150px;
+}
 
 .opacidade { 
   width: 400px; 
