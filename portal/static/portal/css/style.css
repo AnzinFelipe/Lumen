@@ -37,6 +37,22 @@ header #header_jc img {
   width: 150px;
 }
 
+.dropdown-menu a{
+  font-weight: bold;
+}
+
+.dropdown-divider{
+  background-color: #2D54A4;
+}
+
+.submenu p {
+  font-weight: bold;
+}
+
+.submenu a {
+  font-weight: normal;
+}
+
 .opacidade { 
   width: 400px; 
   height: 200px; 
