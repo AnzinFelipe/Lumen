@@ -5,7 +5,14 @@
         <h1>Resultado da pesquisa {{objeto}}</h1>
 
         {%for noticia in noticia%}
-            <li><a href="{% url 'noticia_detalhe' noticia.id %}">{{ noticia.titulo }}</a></li>
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <img class="card-img-top" src="{{ noticia.capa.url }}" alt="{{ noticia.titulo }}">
+                    <h5 class="card-title">{{noticia.titulo}}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">{{noticia.subtitulo}}</h6>
+                    <a href="{% url 'noticia_detalhe' noticia.id %}" class="btn btn-primary">Ler mais</a>
+                </div>
+                </div>
         {%endfor%}
     {%else%}
         <h1>Nada foi pesquisado...</h1>
