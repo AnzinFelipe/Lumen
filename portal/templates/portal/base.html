@@ -90,7 +90,7 @@
           </div>  
         </div>
       </nav>
-      <a href = "{% url 'home' %} "><img src="media/images/logo_jc.png" alt="JC_Imagem"></a>
+      <a href="{% url 'home' %}"><img src="https://i.ibb.co/dsczrvQ5/imagem-2025-11-29-135836164.png" alt="JC_Imagem"></a>
       <form class="d-flex" method=POST action="{%url 'pesquisa-noticia'%}">
         {% csrf_token %}
         <input class="form-control me-2" type="search" placeholder="Pesquisar notícias" aria-label="Pesquisar" name='objeto'>
