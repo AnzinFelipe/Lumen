@@ -1,9 +1,9 @@
-{% extends "portal/base.html" %}
+{%extends 'portal/base.html' %}
 
-{% block conteudo %}
-    {% if noticias %}
-        {% for noticia in noticias %}
-            {% if noticia.tema.tema == "Política" %}
+{%block conteudo%}
+    {%if noticias%}
+        {%for noticia in noticias%}
+            {%if noticia.tema.tema in "Política Local, Política Global"%}
                 <div>
                     <a href="/noticia_detalhe/{{ noticia.id }}"><h3>{{ noticia.titulo }}</h3></a>
                     <h4>{{ noticia.subtitulo }}</h4>
@@ -12,9 +12,9 @@
                         Por {{ noticia.autor }} em {{ noticia.data|date:"d/m/Y" }}
                     </small>
                 </div>
-            {% endif %}
-        {% endfor %}
-    {% else %}
+            {%endif%}
+        {%endfor%}
+    {%else%}
         <p>Nenhuma notícia encontrada</p>
-    {% endif %}
-{% endblock conteudo %}
+    {%endif%}
+{%endblock conteudo%}

@@ -10,7 +10,7 @@ def criar_temas_iniciais(apps, schema_editor):
 
 def remover_temas_iniciais(apps, schema_editor):
     Tema = apps.get_model('portal', 'Tema')
-    temas = ['Esportes', 'Política', 'Economia', 'Tecnologia', 'Entretenimento']
+    temas = ['Esportes', 'Economia', 'Tecnologia', 'Entretenimento']
     
     Tema.objects.filter(tema__in=temas).delete()
     print("Temas iniciais removidos!")

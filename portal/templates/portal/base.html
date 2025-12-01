@@ -58,32 +58,32 @@
                   <li><a class="dropdown-item" href="#">Pernambuco</a></li>
                   <li><hr class="dropdown-divider"></li>
                   <div class = "Submenu">
-                    <li><p>Política</p></li>
-                    <li><a class="dropdown-item" href="#">Regionais</a></li>
-                    <li><a class="dropdown-item" href="#">Globais</a></li>
+                    <li><p> <a href="{%  url 'politica' %}" style="color: black"><strong>Política</strong></a></p></li>
+                    <li><a class="dropdown-item" href="{% url 'politica_local' %}">Regionais</a></li>
+                    <li><a class="dropdown-item" href="{% url 'politica_global' %}">Globais</a></li>
                   </div>
                   <li><hr class="dropdown-divider"></li>
                   <div class = "Submenu">
-                    <li><p>Climáticas</p></li>
-                    <li><a class="dropdown-item" href="#">Regionais</a></li>
-                    <li><a class="dropdown-item" href="#">Globais</a></li>
+                    <li><p> <a href="{%  url 'clima' %}" style="color: black"><strong>Climática</strong></a></p></li>
+                    <li><a class="dropdown-item" href="{% url 'clima_local' %}">Regionais</a></li>
+                    <li><a class="dropdown-item" href="{% url 'clima_global' %}">Globais</a></li>
                   </div>
                   <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" href="#">Saúde e Bem-Estar</a></li>
+                  <li><a class="dropdown-item" href="{% url 'saude_bem-estar' %}">Saúde e Bem-Estar</a></li>
                   <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" href="#">Educação</a></li>
+                  <li><a class="dropdown-item" href="{% url 'educacao' %}">Educação</a></li>
                   <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" href="#">Segurança</a></li>
+                  <li><a class="dropdown-item" href="{% url 'seguranca' %}">Segurança</a></li>
                   <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" href="#">Cultura</a></li>
+                  <li><a class="dropdown-item" href="{% url 'cultura' %}">Cultura</a></li>
                   <li><hr class="dropdown-divider"></li>
                   <li><a class="dropdown-item" href="{% url 'economia' %}">Economia</a></li>
                   <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" href="#">Mobilidade</a></li>
+                  <li><a class="dropdown-item" href="{% url 'mobilidade' %}">Mobilidade</a></li>
                   <li><hr class="dropdown-divider"></li>
                   <li><a class="dropdown-item" href= "{% url 'esportes' %}">Blog do Torcedor</a></li>
                   <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" href="#">Receita da Boa</a></li>
+                  <li><a class="dropdown-item" href="{% url 'receita' %}">Receita da Boa</a></li>
                 </ul>
               </li>
             </ul>

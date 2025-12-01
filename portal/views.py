@@ -156,6 +156,15 @@ def politica(request):
     }
     return render(request, 'portal/politica.html', contexto)
 
+def clima(request):
+    noticias = Noticia.objects.all().order_by('-data')
+    noticias_populares = get_noticias_populares()
+    contexto = {
+        'noticias': noticias,
+        'noticias_populares': noticias_populares
+    }
+    return render(request, 'portal/climatica.html', contexto)
+
 def economia(request):
     noticias = Noticia.objects.all().order_by('-data')
     noticias_populares = get_noticias_populares()
@@ -185,6 +194,96 @@ def tecnologia(request):
 
 def get_noticias_populares():
     return Noticia.objects.order_by('-visualizacoes')[:3]
+
+def politica_local(request):
+    noticias = Noticia.objects.all().order_by('-data')
+    noticias_populares = get_noticias_populares()
+    contexto = {
+        'noticias': noticias,
+        'noticias_populares': noticias_populares
+    }
+    return render(request, 'portal/politica_local.html', contexto)
+
+def cultura(request):
+    noticias = Noticia.objects.all().order_by('-data')
+    noticias_populares = get_noticias_populares()
+    contexto = {
+        'noticias': noticias,
+        'noticias_populares': noticias_populares
+    }
+    return render(request, 'portal/cultura.html', contexto)
+
+def clima_global(request):
+    noticias = Noticia.objects.all().order_by('-data')
+    noticias_populares = get_noticias_populares()
+    contexto = {
+        'noticias': noticias,
+        'noticias_populares': noticias_populares
+    }
+    return render(request, 'portal/climatica_global.html', contexto)
+
+def clima_local(request):
+    noticias = Noticia.objects.all().order_by('-data')
+    noticias_populares = get_noticias_populares()
+    contexto = {
+        'noticias': noticias,
+        'noticias_populares': noticias_populares
+    }
+    return render(request, 'portal/climatica_local.html', contexto)
+
+def seguranca(request):
+    noticias = Noticia.objects.all().order_by('-data')
+    noticias_populares = get_noticias_populares()
+    contexto = {
+        'noticias': noticias,
+        'noticias_populares': noticias_populares
+    }
+    return render(request, 'portal/seguranca.html', contexto)
+
+def mobilidade(request):
+    noticias = Noticia.objects.all().order_by('-data')
+    noticias_populares = get_noticias_populares()
+    contexto = {
+        'noticias': noticias,
+        'noticias_populares': noticias_populares
+    }
+    return render(request, 'portal/mobilidade.html', contexto)
+
+def receita(request):
+    noticias = Noticia.objects.all().order_by('-data')
+    noticias_populares = get_noticias_populares()
+    contexto = {
+        'noticias': noticias,
+        'noticias_populares': noticias_populares
+    }
+    return render(request, 'portal/receita.html', contexto)
+
+def saude(request):
+    noticias = Noticia.objects.all().order_by('-data')
+    noticias_populares = get_noticias_populares()
+    contexto = {
+        'noticias': noticias,
+        'noticias_populares': noticias_populares
+    }
+    return render(request, 'portal/saude_bem-estar.html', contexto)
+
+def educacao(request):
+    noticias = Noticia.objects.all().order_by('-data')
+    noticias_populares = get_noticias_populares()
+    contexto = {
+        'noticias': noticias,
+        'noticias_populares': noticias_populares
+    }
+    return render(request, 'portal/educacao.html', contexto)
+
+def politica_global(request):
+    noticias = Noticia.objects.all().order_by('-data')
+    noticias_populares = get_noticias_populares()
+    contexto = {
+        'noticias': noticias,
+        'noticias_populares': noticias_populares
+    }
+    return render(request, 'portal/politica_global.html', contexto)
 
 def noticia_detalhe(request, id):
     noticia = Noticia.objects.get(pk = id)
