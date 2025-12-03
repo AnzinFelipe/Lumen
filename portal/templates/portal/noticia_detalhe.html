@@ -4,15 +4,16 @@
 {% block conteudo %}
     <link rel="stylesheet" href="{% static 'portal/css/noticia_detalhe.css' %}">
     <div class = "noticia">
+        <small>{{ noticia.tema.tema }} | Notícia</small>
         <h3>{{ noticia.titulo }}</h3>
         <h4>{{ noticia.subtitulo }}</h4>
         {% if noticia.capa %}
-            <img src="{{ noticia.capa.url }}" alt="{{ noticia.titulo }}" width="500">
+            <img src="{{ noticia.capa.url }}" alt="{{ noticia.titulo }}" width="1000" height="250">
         {% endif %}
-        <p class="opacidade_interno">{{ noticia.texto }}</p>
         <small>
-            Por {{ noticia.autor }} em {{ noticia.data|date:"d/m/Y" }}
+            Por {{ noticia.autor }} em {{ noticia.data|date:"d/m/Y H:i" }}
         </small>
+        <p>{{ noticia.texto }}</p>
     </div>
 
     <div class = "criar_comentario">
