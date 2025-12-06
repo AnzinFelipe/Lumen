@@ -19,14 +19,18 @@
 
 
 {% block conteudo %}
-<div class="noticia-detalhe container-lumen">
-
-    {# ADICIONADO #}
-    <div class="banner-lateral banner-lateral-esq d-none d-lg-flex">
-        <span>propaganda (segue a scrollagem da tela)</span>
-    </div>
-    <div class="banner-lateral banner-lateral-dir d-none d-lg-flex">
-        <span>propaganda (segue a scrollagem da tela)</span>
+    <link rel="stylesheet" href="{% static 'portal/css/noticia_detalhe.css' %}">
+    <div class = "noticia">
+        <small>{{ noticia.tema.tema }} | Notícia</small>
+        <h3>{{ noticia.titulo }}</h3>
+        <h4>{{ noticia.subtitulo }}</h4>
+        {% if noticia.capa %}
+            <img src="{{ noticia.capa.url }}" alt="{{ noticia.titulo }}" width="1000" height="250">
+        {% endif %}
+        <small>
+            Por {{ noticia.autor }} em {{ noticia.data|date:"d/m/Y H:i" }}
+        </small>
+        <p>{{ noticia.texto }}</p>
     </div>
 
     {# ADICIONADO #}
