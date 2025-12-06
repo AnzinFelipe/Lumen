@@ -1,57 +1,222 @@
 {% extends "portal/base.html" %}
 {% load static %}
 
+{% block extra_css %}
+    {{ block.super }}
+    <style>
+        /* "MAIS POPULARES" COLOQUEI ESCONDIDO */
+        header + main .col-md-3.mb-4 {
+            display: none !important;
+        }
+
+        
+        header + main .col-md-9 {
+            flex: 0 0 100% !important;
+            max-width: 100% !important;
+        }
+    </style>
+{% endblock extra_css %}
+
+
 {% block conteudo %}
-    <link rel="stylesheet" href="{% static 'portal/css/noticia_detalhe.css' %}">
-    <div class = "noticia">
-        <h3>{{ noticia.titulo }}</h3>
-        <h4>{{ noticia.subtitulo }}</h4>
-        {% if noticia.capa %}
-            <img src="{{ noticia.capa.url }}" alt="{{ noticia.titulo }}" width="500">
-        {% endif %}
-        <p class="opacidade_interno">{{ noticia.texto }}</p>
-        <small>
-            Por {{ noticia.autor }} em {{ noticia.data|date:"d/m/Y" }}
-        </small>
+<div class="noticia-detalhe container-lumen">
+
+    {# ADICIONADO #}
+    <div class="banner-lateral banner-lateral-esq d-none d-lg-flex">
+        <span>propaganda (segue a scrollagem da tela)</span>
+    </div>
+    <div class="banner-lateral banner-lateral-dir d-none d-lg-flex">
+        <span>propaganda (segue a scrollagem da tela)</span>
     </div>
 
-    <div class = "criar_comentario">
-            <form class = "coment_form" method = "POST" action = "{% url 'noticia_detalhe' noticia.id %}">
-                {% csrf_token %}
-                <label for = "texto">Deixe seu comentário:</label>
-                <br><textarea name="texto" id="texto" required></textarea>
-                <button type= "submit">Publicar</button>
-                {% if erro %}
-                    <p style="color:red;">{{ erro }}</p>
+    {# ADICIONADO #}
+    <article class="noticia-conteudo">
+
+        {# ADICIONADO #}
+        <div class="noticia-audio">
+            {# quando tiver campo de áudio: 
+                {% if noticia.audio %}
+                    <audio controls src="{{ noticia.audio.url }}"></audio>
                 {% endif %}
-            </form>
-    </div>
+            #}
+            <button class="noticia-audio__play" type="button" aria-label="Ouça a notícia">▶</button>
+            <span class="noticia-audio__label">Ouça a notícia</span>
+            <span class="noticia-audio__line"></span>
+        </div>
 
-    <div class = "comentarios">
-        {% for comentario in comentarios %}
-            <p>{{ comentario.texto }}</p>
-            <p>Publicado em: {{ comentario.data|date:"d/m/Y H:i" }}</p>
-            {% if comentario.usuario %}
-                <p>Por: {{ comentario.usuario.username }}</p>
+        <div class="noticia">
+
+            {# ADICIONADO #}
+            <p class="noticia-caminho">
+                {{ noticia.tema.tema }} | Notícia
+            </p>
+
+            {# ADICIONADO #}
+            <h1 class="titulo-noticia">{{ noticia.titulo }}</h1>
+
+            {% if noticia.subtitulo %}
+                <h2 class="subtitulo-noticia">{{ noticia.subtitulo }}</h2>
             {% endif %}
-        {% endfor %}
-    </div>
 
-    <h2>Leia Mais</h2>
-    <div class = "mais_noticias">
-        {% if outras_noticias %}
-            {% for outra_noticia in outras_noticias%}
-                <div>
-                    <a href="/noticia_detalhe/{{ outra_noticia.id }}"><h5>{{ outra_noticia.titulo }}</h5></a>
-                    <h6>{{ outra_noticia.subtitulo }}</h6>
-                    <p class="opacidade">{{ outra_noticia.texto }}</p>
-                    <small>
-                        Por {{ outra_noticia.autor }} em {{ outra_noticia.data|date:"d/m/Y" }}
-                    </small>
+            {# ADICIONADO #}
+            <p class="noticia-meta-autores">
+                Por <span class="autor-principal">{{ noticia.autor }}</span>
+            </p>
+
+            <p class="noticia-meta-data">
+                Publicado em {{ noticia.data|date:"d/m/Y" }} às {{ noticia.data|time:"H:i" }}
+            </p>
+
+            {# ADICIONADO #}
+            <div class="noticia-propaganda-topo">
+                PROPAGANDA
+            </div>
+
+            {# ADICIONADO #}
+            {% if noticia.capa %}
+                <figure class="noticia-media">
+                    <img class="noticia-capa" src="{{ noticia.capa.url }}" alt="{{ noticia.titulo }}">
+                    {# quando tiver campo legenda_noticia no model:
+                       {% if noticia.legenda %}
+                           <figcaption class="noticia-legenda">{{ noticia.legenda }}</figcaption>
+                       {% endif %}
+                    #}
+                </figure>
+            {% endif %}
+
+            {# ADICIONADO #}
+            <div class="conteudo-noticia">
+                {{ noticia.texto|linebreaks }}
+            </div>
+
+        </div>
+    </article>
+
+    <section class="noticia-extra">
+
+        {# ADICIONADO #}
+        <div class="noticia-instagram">
+            {# Quando tiver embed no model, substitui aqui:
+               {{ noticia.embed_instagram|safe }}
+            #}
+            <div class="noticia-instagram-placeholder">
+                Post do Instagram / vídeo
+            </div>
+        </div>
+
+        {# ADICIONADO #}
+        <div class="noticia-tags">
+            <h3 class="noticia-tags__titulo">Tags</h3>
+            <div class="noticia-tags__lista">
+                {# Placeholder de tags – depois você liga com o model #}
+                <button type="button" class="tag-badge">Assembleia Legislativa de Pernambuco</button>
+                <button type="button" class="tag-badge">Raquel Lyra</button>
+            </div>
+        </div>
+
+        {# ADICIONADO #}
+        <div class="noticia-share">
+            <h3 class="noticia-share__titulo">Compartilhe</h3>
+            <div class="noticia-share__icones">
+                <a href="#" class="share-icone" aria-label="Compartilhar no WhatsApp">WA</a>
+                <a href="#" class="share-icone" aria-label="Compartilhar no Twitter/X">X</a>
+                <a href="#" class="share-icone" aria-label="Compartilhar no Facebook">f</a>
+                <a href="#" class="share-icone" aria-label="Copiar link">⧉</a>
+            </div>
+        </div>
+
+        {# ADICIONADO #}
+        <section class="noticia-leia-tambem">
+            <h3 class="noticia-leia-tambem__titulo">Leia também</h3>
+
+            {% if outras_noticias %}
+                <div class="leia-tambem-grid">
+                    {% for outra_noticia in outras_noticias %}
+                        <article class="leia-card">
+                            {% if outra_noticia.capa %}
+                                <div class="leia-card__imagem-wrapper">
+                                    <img src="{{ outra_noticia.capa.url }}"
+                                         alt="{{ outra_noticia.titulo }}"
+                                         class="leia-card__imagem">
+                                    <span class="leia-card__data">
+                                        {{ outra_noticia.data|date:"d/m/Y" }}
+                                    </span>
+                                </div>
+                            {% endif %}
+                            <h4 class="leia-card__titulo">
+                                <a href="{% url 'noticia_detalhe' outra_noticia.id %}">
+                                    {{ outra_noticia.titulo }}
+                                </a>
+                            </h4>
+                        </article>
+                    {% endfor %}
                 </div>
-            {% endfor %}
-        {% else %}
-        <p>Não há outras notícias relacionadas a {{ noticia.tema.tema }}</p>
-        {% endif %}
-    </div>
+            {% else %}
+                <p class="noticia-leia-tambem__vazio">
+                    Não há outras notícias relacionadas a {{ noticia.tema.tema }}.
+                </p>
+            {% endif %}
+        </section>
+
+        {# ADICIONADO #}
+        <section class="noticia-comentarios-bloco">
+            <div class="noticia-comentarios-caixa">
+
+                {# ADICIONADO #}
+                <h3 class="noticia-comentarios__titulo">Comentários</h3>
+
+                {# ADICIONADO #}
+                <form class="noticia-comentarios-form-inline"
+                        method="POST"
+                        action="{% url 'noticia_detalhe' noticia.id %}">
+                    {% csrf_token %}
+                    <textarea
+                        name="texto"
+                        id="texto"
+                        required
+                        class="comentarios-input"
+                        placeholder="">
+                    </textarea>
+
+                    <button type="submit" class="visually-hidden">Publicar</button>
+
+                    {% if erro %}
+                    <p class="erro-comentario">{{ erro }}</p>
+                    {% endif %}
+                </form>
+
+                {# ADICIONADO #}
+                <div class="noticia-comentarios-lista">
+                    {% if comentarios %}
+                        {% for comentario in comentarios %}
+                            <div class="comentario-item">
+                                <p class="comentario-texto">{{ comentario.texto }}</p>
+                                <p class="comentario-meta">
+                                    {% if comentario.usuario %}
+                                        {{ comentario.usuario.username }}
+                                    {% else %}
+                                        Anônimo
+                                    {% endif %}
+                                    • {{ comentario.data|date:"d/m/Y H:i" }}
+                                </p>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <p class="comentario-vazio">
+                            Ainda não há comentários. Seja o primeiro a comentar.
+                        </p>
+                    {% endif %}
+                </div>
+
+            </div>
+        </section>
+
+
+        {# ADICIONADO #}
+        <div class="noticia-propaganda-bottom">
+            PROPAGANDA
+        </div>
+
+    </section>
+
 {% endblock conteudo %}

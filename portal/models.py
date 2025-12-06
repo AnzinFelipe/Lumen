@@ -33,7 +33,12 @@ class Noticia(models.Model):
     tema = models.ForeignKey(Tema, on_delete = models.CASCADE, related_name='noticias')
     visualizacoes = models.IntegerField(default=0)
     capa = _image_field()
-
+    
+    # ------- CAMPOS NOVOS --------
+    legenda = models.CharField(max_length=255, blank=True, null=True)
+    audio = models.FileField(upload_to="audios_noticias", blank=True, null=True)
+    # ----------------------------------
+   
     def __str__(self):
         return f"{self.titulo}"
     

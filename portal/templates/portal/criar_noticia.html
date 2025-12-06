@@ -21,8 +21,16 @@
         <label for="autor" class="rotulo">Autor:</label>
         <input type="text" name="autor" id="autor" class="entrada" required>
 
-        <label for="capa" class="rotulo">capa:</label>
+        <label for="capa" class="rotulo">Capa:</label>
         <input type="file" name="capa" id="capa" class="entrada" required>
+
+        {# NOVO: legenda da imagem #}
+        <label for="legenda" class="rotulo">Legenda da imagem:</label>
+        <input type="text" name="legenda" id="legenda" class="entrada">
+
+        {# NOVO: áudio da notícia #}
+        <label for="audio" class="rotulo">Áudio da notícia (opcional):</label>
+        <input type="file" name="audio" id="audio" class="entrada">
 
         <label for="tema" class="rotulo">Tema:</label>
         <select name="tema" id="tema" class="entrada" required>
