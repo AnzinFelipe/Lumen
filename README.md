@@ -90,7 +90,7 @@ Dentro da nossa proposta, está incluso:
 
 * Finalização dos relatórios de programação em par:
 * Dupla 1: [Relatório da Dupla 1](https://docs.google.com/document/d/1a_NikMtF27fPjyLOLT107KCeOgPj1l2kdQAw9dYD30I/edit?tab=t.0)
-* Dupla 2:
+* Dupla 2: [Relatório da Dupla 2](https://docs.google.com/document/d/1nyYnWOjRZvwK7kqKuZsknu8xG4RFX7aCyYm8wuKGZu0/edit?usp=sharing)
 * Trio: [Relatório do Trio](https://docs.google.com/document/d/1vIPQz4VGyc6s2qCaE1WBmPjugPYztvoB/edit?usp=sharing&ouid=107355303125271388949&rtpof=true&sd=true)
 * Criação do usuário na aplicação para uso dos avaliadores.
 </details>
