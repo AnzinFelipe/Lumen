@@ -104,6 +104,8 @@ def criar_noticia(request):
         autor = request.POST.get('autor')
         tema_id = request.POST.get('tema')
         capa = request.FILES.get('capa')
+        audio = request.FILES.get('audio')      # ADICIONADO
+        legenda = request.POST.get('legenda')   # ADICIONADO
         
         if not all([titulo, subtitulo, texto, autor, tema_id]):
             erro = "Todos os campos são obrigatórios!"
@@ -122,7 +124,9 @@ def criar_noticia(request):
                     texto=texto,
                     autor=autor,
                     tema=tema,
-                    capa=capa
+                    capa=capa,
+                    legenda= legenda,   #  ADICIONADO
+                    audio=audio        #  ADICIONADO
                 )
                 
                 return redirect('home')
