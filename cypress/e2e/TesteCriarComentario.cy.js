@@ -24,14 +24,14 @@ Cypress.Commands.add('criarComentario', () => {
 
     cy.url().should('include', '/noticia_detalhe/');
     
-    cy.get('.criar_comentario textarea[name="texto"]')
+    cy.get('.comentarios-input')
       .should('be.visible')
       .type('comentário teste.');
     
-    cy.get('.coment_form button[type="submit"]').click();
+    cy.get('.noticia-comentarios-form-inline button[type="submit"]').click();
     cy.contains('Ler mais').should('be.visible');
     cy.contains('Ler mais').click();
-
+    
     cy.contains('comentário teste.').should('be.visible');
 });
 

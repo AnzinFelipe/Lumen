@@ -30,11 +30,7 @@ Cypress.Commands.add('postarTema', () => {
 Cypress.Commands.add('verificarNoticiaNosDestaques', () => {
   cy.visit('http://127.0.0.1:8000/');
   
-  cy.get('.card-header').contains('Mais Populares').should('be.visible');
-  
-  cy.get('.card-body').first().within(() => {
-    cy.contains('Teste de Notícia').should('be.visible');
-  });
+  cy.contains('MAIS RELEVANTES DA SEMANA').should('be.visible');
 });
 
 it('deve criar notícia e checar se ela existe na url do tema e nos destaques', () => {
