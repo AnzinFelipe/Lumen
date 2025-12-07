@@ -6,7 +6,7 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('portal', '0017_noticia_audio_noticia_legenda_alter_noticia_capa'),
+        ('portal', '0019_auto_20251206_1708'),
         ('portal', '0018_merge_20251203_1859'),
     ]
 

@@ -1,5 +1,7 @@
 {% extends "portal/base.html" %}
 
+{% load static %}
+
 {% block conteudo %}
 
 <section class="home-section home-mais-relevantes mb-5">
@@ -192,145 +194,56 @@
         </div>
 
         {% if pernambuco_noticias %}
-        {% with noticia_principal=pernambuco_noticias.0 %}
-        <div class="row g-4 align-items-start">
+            {% with noticia_principal=pernambuco_noticias.0 %}
+            <div class="row g-4 align-items-start">
+                <div class="col-lg-8">
+                    <article class="noticia-destaque-card">
+                        <div class="row g-3">
+                            <div class="col-md-5">
+                                {% if noticia_principal.capa %}
+                                <a href="{% url 'noticia_detalhe' noticia_principal.id %}">
+                                    <img src="{{ noticia_principal.capa.url }}"
+                                        alt="{{ noticia_principal.legenda|default:noticia_principal.titulo }}"
+                                        class="destaque-img main-news-image">
+                                </a>
+                                {% endif %}
+                            </div>
+                            <div class="col-md-7 d-flex flex-column noticia-destaque-corpo">
+                                <span class="noticia-meta-tempo">
+                                    {{ noticia_principal.data|timesince }} atrás
+                                </span>
+                                <a href="{% url 'noticia_detalhe' noticia_principal.id %}" class="text-decoration-none text-dark">
+                                    <h3 class="destaque-titulo">{{ noticia_principal.titulo }}</h3>
+                                </a>
+                                <p class="destaque-subtitulo">{{ noticia_principal.subtitulo }}</p>
+                            </div>
+                        </div>
+                    </article>
 
-            <div class="col-lg-8">
-
-                <article class="noticia-destaque-card">
-                    <div class="row g-3">
-
-                        <div class="col-md-5">
-                            {% if noticia_principal.capa %}
-                            <a href="{% url 'noticia_detalhe' noticia_principal.id %}">
-                                <img src="{{ noticia_principal.capa.url }}"
-                                    alt="{{ noticia_principal.legenda|default:noticia_principal.titulo }}"
-                                    class="destaque-img main-news-image">
+                    <div class="noticia-lista-menores">
+                        {% for noticia in pernambuco_noticias|slice:"1:5" %}
+                        <article class="noticia-menor-item">
+                            {% if noticia.capa %}
+                            <a href="{% url 'noticia_detalhe' noticia.id %}">
+                                <img src="{{ noticia.capa.url }}" alt="{{ noticia.legenda|default:noticia.titulo }}" class="noticia-menor-thumb">
                             </a>
                             {% endif %}
-                        </div>
-
-                         <div class="col-md-7 d-flex flex-column noticia-destaque-corpo">
-
-                            <span class="noticia-meta-tempo">
-                                {{ noticia_principal.data|timesince }} atrás
-                            </span>
-
-                            <a href="{% url 'noticia_detalhe' noticia_principal.id %}"
-                                class="text-decoration-none text-dark">
-                                <h3 class="destaque-titulo">
-                                    {{ noticia_principal.titulo }}
-                                </h3>
-                            </a>
-
-                            <p class="destaque-subtitulo">
-                                {{ noticia_principal.subtitulo }}
-                            </p>
+                            <div class="flex-grow-1">
+                                <a href="{% url 'noticia_detalhe' noticia.id %}" class="text-decoration-none text-dark">
+                                    <h4 class="noticia-menor-titulo">{{ noticia.titulo }}</h4>
+                                </a>
+                                <p class="noticia-menor-meta">{{ noticia.data|timesince }} atrás</p>
+                            </div>
+                        </article>
+                        {% endfor %}
                     </div>
-            </div>
-            </article>
-
-            <div class="noticia-lista-menores">
-
-                {% for noticia in pernambuco_noticias|slice:"1:5" %}
-                <article class="noticia-menor-item">
-
-                    {% if noticia.capa %}
-                    <a href="{% url 'noticia_detalhe' noticia.id %}">
-                        <img src="{{ noticia.capa.url }}" alt="{{ noticia.legenda|default:noticia.titulo }}"
-                            class="noticia-menor-thumb">
-                    </a>
-                    {% endif %}
-
-                    <div class="flex-grow-1">
-
-                        <a href="{% url 'noticia_detalhe' noticia.id %}" class="text-decoration-none text-dark">
-                            <h4 class="noticia-menor-titulo">
-                                {{ noticia.titulo }}
-                            </h4>
-                        </a>
-
-                        <p class="noticia-menor-meta">
-                            {{ noticia.data|timesince }} atrás
-                        </p>
-
-                    </div>
-
-                </article>
-                {% endfor %}
-
-            </div>
-
-        </div>
-
-
-        <div class="col-lg-4">
-
-        </div>
-
-    </div>
-    {% endwith %}
-    {% else %}
-        <div class="row mb-4">
-            <div class="col-12">
-                <div class="card">
-                    {% if noticias.0.capa %}
-                        <div style="position: relative; display: inline-block; width: 100%;">
-                            <img src="{{ noticias.0.capa.url }}" class="card-img-top" alt="{{ noticias.0.titulo }}" style="max-height: 300px; object-fit: cover; width: 100%; display: block;">
-                            <small style="position: absolute; bottom: 10px; right: 10px; background-color: rgba(0, 0, 0, 0.7); color: white; padding: 5px 10px; border-radius: 4px; font-size: 12px;">{{ noticias.0.data|date:"d/m/Y H:i" }}</small>
-                        </div>
-                    {% endif %}
-                    <div class="card-body">
-                        <h3 class="card-title">{{ noticias.0.titulo }}</h3>
-                        <h6 class="card-subtitle mb-2 text-muted">{{ noticias.0.subtitulo }}</h6>
-                        <p class="card-text">{{ noticias.0.texto|truncatewords:50 }}</p>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <a href="{% url 'noticia_detalhe' noticias.0.id %}" class="btn btn-primary">Ler mais</a>
-                        </div>
-
-                    </div>
-                </article>
-
-
-                <div class="noticia-lista-menores">
-                    {% for video in videos_tv_jornal|slice:"1:5" %}
-                    <article class="noticia-menor-item">
-
-                        {% if video.capa %}
-                        <a href="{% url 'noticia_detalhe' video.id %}">
-                            <img src="{{ video.capa.url }}" alt="{{ video.legenda|default:video.titulo }}"
-                                class="noticia-menor-thumb">
-                        </a>
-                        {% endif %}
-
-                        <div class="flex-grow-1">
-
-                            <a href="{% url 'noticia_detalhe' video.id %}" class="text-decoration-none text-dark">
-                                <h4 class="noticia-menor-titulo">
-                                    {{ video.titulo }}
-                                </h4>
-                            </a>
-
-                            <p class="noticia-menor-meta">
-                                {{ video.data|timesince }} atrás
-                            </p>
-
-                        </div>
-
-                    </article>
-                    {% endfor %}
                 </div>
 
+                <div class="col-lg-4"></div>
             </div>
-
-            <div class="col-lg-4">
-
-            </div>
-
-        </div>
-        {% endwith %}
+            {% endwith %}
         {% else %}
-        <p>Ainda não há vídeos para exibir em "VÍDEOS DA TV JORNAL".</p>
+            <p>Ainda não há notícias para exibir em "PERNAMBUCO".</p>
         {% endif %}
 
         <div class="text-center">
@@ -368,12 +281,11 @@
                             </div>
                         </div>
 
-                    </article>
-                    {% endfor %}
+                        </div>
+                    </div>
                 </div>
-
+                {% endfor %}
             </div>
-
 
             <div class="col-lg-4">
 
@@ -391,10 +303,6 @@
             </div>
 
         </div>
-        {% endwith %}
-        {% else %}
-        <p>Ainda não há posts no "BLOG DO TORCEDOR".</p>
-        {% endif %}
 
         <div class="text-center">
             <a href="#" class="btn-ver-mais">Ver mais</a>

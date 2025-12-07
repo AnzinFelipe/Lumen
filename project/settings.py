@@ -18,7 +18,7 @@ TEMPLATE_DIR = BASE_DIR / 'templates'
 SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-b*y_52=!#%rayw(hzl6+iir0&@gb34=@30q)ta6az=q=*ke!^t')
 
 
-DEBUG = ENV_DEBUG.lower() in ['true', '1', 'yes']
+DEBUG = os.environ.get('DEBUG','').lower() in ['true','1','yes']
 
 
 ALLOWED_HOSTS = [
