@@ -58,4 +58,39 @@ Dentro da nossa proposta, está incluso:
 * Implementação da história 5 (Função de pesquisa).
 </details>
 
+<details open>
+<summary>Entregas dia 10/11 (ᕑᗢᓫ∗)˒</summary>
 
+* Implementação da história 1 (Função de pesquisa personalizada).
+* Implementação de CI/CD com build e deployment automatizado.
+</details>
+
+<details open>
+<summary>Entregas dia 17/11 (ᕑᗢᓫ∗)˒</summary>
+
+* Criação dos relatórios de programação em par:
+* Dupla 1: [Relatório da Dupla 1](https://docs.google.com/document/d/1a_NikMtF27fPjyLOLT107KCeOgPj1l2kdQAw9dYD30I/edit?tab=t.0)
+* Dupla 2: [Relatório da Dupla 2](https://docs.google.com/document/d/1nyYnWOjRZvwK7kqKuZsknu8xG4RFX7aCyYm8wuKGZu0/edit?usp=sharing)
+* Trio: [Relatório do Trio](https://docs.google.com/document/d/1vIPQz4VGyc6s2qCaE1WBmPjugPYztvoB/edit?usp=sharing&ouid=107355303125271388949&rtpof=true&sd=true)
+* Implementação da história 6 (Função de menu hambúrguer).
+</details>
+
+<details open>
+<summary>Entregas dia 24/11 (ᕑᗢᓫ∗)˒</summary>
+
+* Adição de testes automatizados no CI/CD.
+* Criação da screencast de testes:
+* Link: 
+* Criação da screencast do processo de build e deployment.
+* Link: 
+</details>
+
+<details open>
+<summary>Entregas dia 1/12 (ᕑᗢᓫ∗)˒</summary>
+
+* Finalização dos relatórios de programação em par:
+* Dupla 1: [Relatório da Dupla 1](https://docs.google.com/document/d/1a_NikMtF27fPjyLOLT107KCeOgPj1l2kdQAw9dYD30I/edit?tab=t.0)
+* Dupla 2: [Relatório da Dupla 2](https://docs.google.com/document/d/1nyYnWOjRZvwK7kqKuZsknu8xG4RFX7aCyYm8wuKGZu0/edit?usp=sharing)
+* Trio: [Relatório do Trio](https://docs.google.com/document/d/1vIPQz4VGyc6s2qCaE1WBmPjugPYztvoB/edit?usp=sharing&ouid=107355303125271388949&rtpof=true&sd=true)
+* Criação do usuário na aplicação para uso dos avaliadores.
+</details>
