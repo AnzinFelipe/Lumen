@@ -2,6 +2,7 @@ from django.shortcuts import redirect, render
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponse
+from django.contrib.auth.decorators import user_passes_test # ADICIONADO
 from rolepermissions.roles import assign_role
 from rolepermissions.decorators import has_permission_decorator
 from portal.models import Noticia
@@ -10,16 +11,30 @@ from django.db import IntegrityError
 from portal.models import Tema
 # Create your views here.
 
-def home(request):
+def home(request): # ADADAPITADO
+    
     noticias = Noticia.objects.all().order_by('-data')
+    ultimas_noticias = noticias
     noticias_populares = get_noticias_populares()
-    print("Quantidade de notícias:", noticias.count())  
-    print("Notícias:", [n.titulo for n in noticias])  
-    print("Notícias populares:", [n.titulo for n in noticias_populares])  
+    pernambuco_noticias = noticias
+    videos_tv_jornal = noticias
+    blog_torcedor = noticias
+    social_1 = noticias
+    receita_da_boa = noticias
+
     return render(request, 'portal/home.html', {
         'noticias': noticias,
-        'noticias_populares': noticias_populares
+        'noticias_populares': noticias_populares,
+        'ultimas_noticias': ultimas_noticias,
+
+        'pernambuco_noticias': pernambuco_noticias,
+        'videos_tv_jornal': videos_tv_jornal,
+        'blog_torcedor': blog_torcedor,
+        'social_1': social_1,
+        'receita_da_boa': receita_da_boa,
     })
+
+
 
 
 def noticia_list(request):
@@ -96,28 +111,40 @@ def Login(request):
     return render(request, 'registration/login.html')
 
 
+@user_passes_test(lambda u: u.is_authenticated and u.is_staff)  # ADICIONADO
 def criar_noticia(request):
+    """
+    View para criação de notícias.
+    - Acessível apenas para usuários logados e marcados como staff.
+    - Salva título, subtítulo, texto, autor, tema, capa, legenda e áudio.
+    """
     if request.method == 'POST':
         titulo = request.POST.get('titulo')
         subtitulo = request.POST.get('subtitulo')
         texto = request.POST.get('texto')
         autor = request.POST.get('autor')
         tema_id = request.POST.get('tema')
+
         capa = request.FILES.get('capa')
         audio = request.FILES.get('audio')      # ADICIONADO
         legenda = request.POST.get('legenda')   # ADICIONADO
+
+        erro = None  # ADICIONADO
+
         
         if not all([titulo, subtitulo, texto, autor, tema_id]):
-            erro = "Todos os campos são obrigatórios!"
+            erro = "Todos os campos marcados como obrigatórios precisam ser preenchidos."
         elif len(titulo) > 100:
-            erro = "O título deve ter no máximo 100 caracteres!"
+            erro = "O título deve ter no máximo 100 caracteres."
         elif len(subtitulo) > 200:
-            erro = "O subtítulo deve ter no máximo 200 caracteres!"
+            erro = "O subtítulo deve ter no máximo 200 caracteres."
         elif len(autor) > 50:
-            erro = "O autor deve ter no máximo 50 caracteres!"
-        else:
+            erro = "O nome do autor deve ter no máximo 50 caracteres."
+
+        if not erro:  # ADICIONADO
             try:
                 tema = Tema.objects.get(id=tema_id)
+
                 Noticia.objects.create(
                     titulo=titulo,
                     subtitulo=subtitulo,
@@ -125,22 +152,33 @@ def criar_noticia(request):
                     autor=autor,
                     tema=tema,
                     capa=capa,
-                    legenda= legenda,   #  ADICIONADO
-                    audio=audio        #  ADICIONADO
+                    legenda=legenda,
+                    audio=audio
                 )
                 
                 return redirect('home')
+            
             except Tema.DoesNotExist:
                 erro = "Tema selecionado é inválido!"
-        
-        return render(request, 'portal/criar_noticia.html', {
-            'todas_temas': Tema.objects.all(),
-            'erro': erro
-        })
+ 
+        return render(
+            request,
+            'portal/criar_noticia.html',
+            {
+                'todas_temas': Tema.objects.all(),
+                'erro': erro
+            }
+        )
+
     
-    return render(request, 'portal/criar_noticia.html', {
-        'todas_temas': Tema.objects.all()
-    })
+    return render(
+        request,
+        'portal/criar_noticia.html',
+        {
+            'todas_temas': Tema.objects.all()
+        }
+    )
+
     
 def esportes(request):
     noticias = Noticia.objects.all().order_by('-data')

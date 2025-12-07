@@ -34,11 +34,13 @@
 
         {# ADICIONADO #}
         <div class="noticia-audio">
-            {# quando tiver campo de áudio: 
+
+            <!-- quando tiver campo de áudio: --> 
+
                 {% if noticia.audio %}
                     <audio controls src="{{ noticia.audio.url }}"></audio>
                 {% endif %}
-            #}
+            
             <button class="noticia-audio__play" type="button" aria-label="Ouça a notícia">▶</button>
             <span class="noticia-audio__label">Ouça a notícia</span>
             <span class="noticia-audio__line"></span>
@@ -76,11 +78,13 @@
             {% if noticia.capa %}
                 <figure class="noticia-media">
                     <img class="noticia-capa" src="{{ noticia.capa.url }}" alt="{{ noticia.titulo }}">
-                    {# quando tiver campo legenda_noticia no model:
+
+                    <!-- quando tiver campo legenda_noticia no model: -->
+
                        {% if noticia.legenda %}
                            <figcaption class="noticia-legenda">{{ noticia.legenda }}</figcaption>
-                       {% endif %}
-                    #}
+                       {% endif %} 
+                    
                 </figure>
             {% endif %}
 
@@ -96,9 +100,10 @@
 
         {# ADICIONADO #}
         <div class="noticia-instagram">
-            {# Quando tiver embed no model, substitui aqui:
-               {{ noticia.embed_instagram|safe }}
-            #}
+            
+            <!-- Quando tiver embed no model, substitui aqui:
+               {{ noticia.embed_instagram|safe }} -->
+            
             <div class="noticia-instagram-placeholder">
                 Post do Instagram / vídeo
             </div>
