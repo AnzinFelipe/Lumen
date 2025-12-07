@@ -111,7 +111,6 @@ def Login(request):
     return render(request, 'registration/login.html')
 
 
-@user_passes_test(lambda u: u.is_authenticated and u.is_staff)  # ADICIONADO
 def criar_noticia(request):
     """
     View para criação de notícias.
