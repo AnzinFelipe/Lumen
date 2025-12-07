@@ -41,7 +41,7 @@ Dentro da nossa proposta, está incluso:
 <details open>
 <summary>Entregas dia 20/10 o(´^｀)o</summary>
 
-* Deploy na nuvem da nossa aplicação (link de acesso: [link.](https://lumen-kappa-flame.vercel.app/)).
+* Deploy na nuvem da nossa aplicação (link de acesso: [Lumen.](https://lumen-kappa-flame.vercel.app/)).
 * Implementação da história 7 (Função comentário dentro do site).
 </details>
 
