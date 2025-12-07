@@ -18,8 +18,8 @@ Cypress.Commands.add('criarUsuario', () => {
 
   cy.get('#username').should('be.visible');
 
-  cy.get('#username').type('TestandoCypress7');
-  cy.get('#email').type('testeCypress7@gmail.com');
+  cy.get('#username').type('TestandoCypress10');
+  cy.get('#email').type('testeCypress10@gmail.com');
   cy.get('#senha').type('12345678');
   cy.get('#senhaconfirmar').type('12345678');
 
@@ -30,7 +30,7 @@ Cypress.Commands.add('criarUsuario', () => {
 
 Cypress.Commands.add('fazerLogin', () => {
   cy.visit('http://127.0.0.1:8000/accounts/login/');
-  cy.get('#username').type('TestandoCypress7');
+  cy.get('#username').type('TestandoCypress10');
   cy.get('#password').type('12345678');
   cy.get('button[type="submit"]').click();
 
@@ -45,6 +45,6 @@ describe('Fluxo do usuário', () => {
   it('deve criar um usuario e fazer login no site', () => {
     cy.criarUsuario();
     cy.fazerLogin();
-    cy.contains('Noticias').should('be.visible');
+    cy.contains('Teste de Notícia').should('be.visible');
   });
 });
