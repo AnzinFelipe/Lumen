@@ -19,8 +19,9 @@ Cypress.Commands.add('criarComentario', () => {
     cy.contains('button', 'Criar Notícia').click();
     
     cy.url().should('eq', 'http://127.0.0.1:8000/');
-    cy.contains('Ler mais').should('be.visible');
-    cy.contains('Ler mais').click();
+    cy.contains('Teste de Notícia').should('be.visible');
+    
+    cy.contains('Teste de Notícia').click();
 
     cy.url().should('include', '/noticia_detalhe/');
     
@@ -29,8 +30,12 @@ Cypress.Commands.add('criarComentario', () => {
       .type('comentário teste.');
     
     cy.get('.noticia-comentarios-form-inline button[type="submit"]').click();
-    cy.contains('Ler mais').should('be.visible');
-    cy.contains('Ler mais').click();
+    
+    cy.wait(1000);
+    cy.contains('Teste de Notícia').should('be.visible');
+    
+    cy.contains('Teste de Notícia').click();
+
     
     cy.contains('comentário teste.').should('be.visible');
 });
