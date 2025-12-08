@@ -18,8 +18,8 @@ Cypress.Commands.add('criarUsuario', () => {
 
   cy.get('#username').should('be.visible');
 
-  cy.get('#username').type('TestandoCypress13');
-  cy.get('#email').type('testeCypress13@gmail.com');
+  cy.get('#username').type('TestandoCypress14');
+  cy.get('#email').type('testeCypress14@gmail.com');
   cy.get('#senha').type('12345678');
   cy.get('#senhaconfirmar').type('12345678');
 
@@ -30,7 +30,7 @@ Cypress.Commands.add('criarUsuario', () => {
 
 Cypress.Commands.add('fazerLogin', () => {
   cy.visit('http://127.0.0.1:8000/accounts/login/');
-  cy.get('#username').type('TestandoCypress13');
+  cy.get('#username').type('TestandoCypress14');
   cy.get('#password').type('12345678');
   cy.get('button[type="submit"]').click();
 

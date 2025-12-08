@@ -1,20 +1,51 @@
-{%extends 'portal/base.html' %}
+{% extends "portal/base.html" %}
 
-{%block conteudo%}
-    {%if noticias%}
-        {%for noticia in noticias%}
-            {%if noticia.tema.tema == "Política Local"%}
-                <div>
-                    <a href="/noticia_detalhe/{{ noticia.id }}"><h3>{{ noticia.titulo }}</h3></a>
-                    <h4>{{ noticia.subtitulo }}</h4>
-                    <p class="opacidade">{{ noticia.texto }}</p>
-                    <small>
-                        Por {{ noticia.autor }} em {{ noticia.data|date:"d/m/Y" }}
-                    </small>
-                </div>
-            {%endif%}
-        {%endfor%}
-    {%else%}
-        <p>Nenhuma notícia encontrada</p>
-    {%endif%}
-{%endblock conteudo%}
+{% block extra_css %}
+    {{ block.super }}
+    <style>
+        header + main .col-md-3.mb-4 {
+            display: none !important;
+        }
+        
+        header + main .col-md-9 {
+            flex: 0 0 100% !important;
+            max-width: 100% !important;
+        }
+    </style>
+{% endblock extra_css %}
+
+{% block conteudo %}
+    {% if noticias %}
+        <div class="row">
+            {% for noticia in noticias %}
+                {% if noticia.tema.tema == "Política Local" %}
+                    <div class="col-12 col-md-6 mb-4">
+                        <div class="card h-100">
+                            {% if noticia.capa %}
+                                <div style="position: relative; display: inline-block; width: 100%;">
+                                    <img src="{{ noticia.capa.url }}" class="card-img-top" alt="{{ noticia.titulo }}" style="height: 250px; object-fit: cover; width: 100%; display: block;">
+                                    <small style="position: absolute; bottom: 10px; right: 10px; background-color: rgba(0, 0, 0, 0.7); color: white; padding: 5px 10px; border-radius: 4px; font-size: 12px;">{{ noticia.data|date:"d/m/Y H:i" }}</small>
+                                </div>
+                            {% endif %}
+                            <div class="card-body d-flex flex-column">
+                                <h3 class="card-title">{{ noticia.titulo }}</h3>
+                                <h6 class="card-subtitle mb-2 text-muted">{{ noticia.subtitulo }}</h6>
+                                <p class="card-text flex-grow-1">{{ noticia.texto|truncatewords:30 }}</p>
+                                <div class="d-flex justify-content-between align-items-center mt-auto">
+                                    <small class="text-muted">Por {{ noticia.autor }}</small>
+                                    <a href="{% url 'noticia_detalhe' noticia.id %}" class="btn btn-primary btn-sm">Ler mais</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-10 col-lg-8 text-center">
+                <p>Nenhuma notícia encontrada</p>
+            </div>
+        </div>
+    {% endif %}
+{% endblock conteudo %}

@@ -35,8 +35,8 @@ Cypress.Commands.add('postarDuasNoticiaseIrNoLeiaMais', () => {
     cy.contains('Teste para o Leia Mais').should('be.visible');
 
     cy.visit('http://127.0.0.1:8000/esportes/');
-    cy.contains('Teste de Notícia').should('be.visible');
-    cy.contains('Teste de Notícia').click();
+    cy.contains('Ler mais').should('be.visible');
+    cy.contains('Ler mais').click();
 
     cy.url().should('include', '/noticia_detalhe/');
     
