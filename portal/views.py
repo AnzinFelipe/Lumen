@@ -12,26 +12,57 @@ from portal.models import Tema
 # Create your views here.
 
 def home(request): # ADADAPITADO
-    
-    noticias = Noticia.objects.all().order_by('-data')
-    ultimas_noticias = noticias
+    # Últimas notícias por data
+    ultimas_noticias = Noticia.objects.all().order_by('-data')
+
+    # Todas as demais seções por visualizações
+    noticias_relevantes = Noticia.objects.all().order_by('-visualizacoes', '-data')
+    temas_pernambuco = Tema.objects.filter(tema__in=["Climática Local", "Política Local"])
+    pernambuco_noticias = Noticia.objects.filter(tema__in=temas_pernambuco).order_by('-visualizacoes', '-data')
+    videos_tv_jornal = Noticia.objects.all().order_by('-visualizacoes', '-data')
+    tema_esportes = Tema.objects.filter(tema="Esportes").first()
+    if tema_esportes:
+        blog_torcedor = Noticia.objects.filter(tema=tema_esportes).order_by('-visualizacoes', '-data')
+    else:
+        blog_torcedor = Noticia.objects.none()
+    social_1 = Noticia.objects.all().order_by('-visualizacoes', '-data')
+    tema_receita = Tema.objects.filter(tema="Receita").first()
+    if tema_receita:
+        receita_da_boa = Noticia.objects.filter(tema=tema_receita).order_by('-visualizacoes', '-data')
+    else:
+        receita_da_boa = Noticia.objects.none()
+
     noticias_populares = get_noticias_populares()
-    pernambuco_noticias = noticias
-    videos_tv_jornal = noticias
-    blog_torcedor = noticias
-    social_1 = noticias
-    receita_da_boa = noticias
+    mais_lidas = Noticia.objects.all().order_by('-visualizacoes', '-data')
+    
+    # Social 1 - Filtros por tema
+    tema_cultura = Tema.objects.filter(tema="Cultura").first()
+    if tema_cultura:
+        social_signos = Noticia.objects.filter(tema=tema_cultura).order_by('-visualizacoes', '-data')
+    else:
+        social_signos = Noticia.objects.none()
+    
+    tema_entretenimento = Tema.objects.filter(tema="Entretenimento").first()
+    if tema_entretenimento:
+        social_series = Noticia.objects.filter(tema=tema_entretenimento).order_by('-visualizacoes', '-data')
+        social_agnews = Noticia.objects.filter(tema=tema_entretenimento).order_by('-visualizacoes', '-data')
+    else:
+        social_series = Noticia.objects.none()
+        social_agnews = Noticia.objects.none()
 
     return render(request, 'portal/home.html', {
-        'noticias': noticias,
+        'noticias_relevantes': noticias_relevantes,
         'noticias_populares': noticias_populares,
         'ultimas_noticias': ultimas_noticias,
-
         'pernambuco_noticias': pernambuco_noticias,
         'videos_tv_jornal': videos_tv_jornal,
         'blog_torcedor': blog_torcedor,
         'social_1': social_1,
         'receita_da_boa': receita_da_boa,
+        'mais_lidas': mais_lidas,
+        'social_signos': social_signos,
+        'social_series': social_series,
+        'social_agnews': social_agnews,
     })
 
 

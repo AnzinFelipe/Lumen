@@ -117,9 +117,7 @@
         <div class="noticia-tags">
             <h3 class="noticia-tags__titulo">Tags</h3>
             <div class="noticia-tags__lista">
-                {# Placeholder de tags – depois você liga com o model #}
-                <button type="button" class="tag-badge">Assembleia Legislativa de Pernambuco</button>
-                <button type="button" class="tag-badge">Raquel Lyra</button>
+                <button type="button" class="tag-badge">{{ noticia.tema.tema }}</button>
             </div>
         </div>
 

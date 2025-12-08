@@ -14,8 +14,8 @@
             <span class="mais-relevantes-header-line"></span>
         </div>
 
-        {% if noticias %}
-        {% with noticia_principal=noticias.0 %}
+        {% if noticias_relevantes %}
+        {% with noticia_principal=noticias_relevantes.0 %}
         <div class="row g-4 align-items-start">
             <div class="col-lg-8">
                 <article class="noticia-destaque-card">
@@ -47,7 +47,7 @@
                 </article>
 
                 <div class="noticia-lista-menores">
-                    {% for noticia in noticias|slice:"1:5" %}
+                    {% for noticia in noticias_relevantes|slice:"1:5" %}
                     <article class="noticia-menor-item">
                         {% if noticia.capa %}
                         <a href="{% url 'noticia_detalhe' noticia.id %}">
@@ -194,9 +194,9 @@
         </div>
 
         {% if pernambuco_noticias %}
-            {% with noticia_principal=pernambuco_noticias.0 %}
             <div class="row g-4 align-items-start">
                 <div class="col-lg-8">
+                    {% with noticia_principal=pernambuco_noticias.0 %}
                     <article class="noticia-destaque-card">
                         <div class="row g-3">
                             <div class="col-md-5">
@@ -219,29 +219,29 @@
                             </div>
                         </div>
                     </article>
+                    {% endwith %}
 
                     <div class="noticia-lista-menores">
                         {% for noticia in pernambuco_noticias|slice:"1:5" %}
-                        <article class="noticia-menor-item">
-                            {% if noticia.capa %}
-                            <a href="{% url 'noticia_detalhe' noticia.id %}">
-                                <img src="{{ noticia.capa.url }}" alt="{{ noticia.legenda|default:noticia.titulo }}" class="noticia-menor-thumb">
-                            </a>
-                            {% endif %}
-                            <div class="flex-grow-1">
-                                <a href="{% url 'noticia_detalhe' noticia.id %}" class="text-decoration-none text-dark">
-                                    <h4 class="noticia-menor-titulo">{{ noticia.titulo }}</h4>
+                            <article class="noticia-menor-item">
+                                {% if noticia.capa %}
+                                <a href="{% url 'noticia_detalhe' noticia.id %}">
+                                    <img src="{{ noticia.capa.url }}" alt="{{ noticia.legenda|default:noticia.titulo }}" class="noticia-menor-thumb">
                                 </a>
-                                <p class="noticia-menor-meta">{{ noticia.data|timesince }} atrás</p>
-                            </div>
-                        </article>
+                                {% endif %}
+                                <div class="flex-grow-1">
+                                    <a href="{% url 'noticia_detalhe' noticia.id %}" class="text-decoration-none text-dark">
+                                        <h4 class="noticia-menor-titulo">{{ noticia.titulo }}</h4>
+                                    </a>
+                                    <p class="noticia-menor-meta">{{ noticia.data|timesince }} atrás</p>
+                                </div>
+                            </article>
                         {% endfor %}
                     </div>
                 </div>
 
                 <div class="col-lg-4"></div>
             </div>
-            {% endwith %}
         {% else %}
             <p>Ainda não há notícias para exibir em "PERNAMBUCO".</p>
         {% endif %}
@@ -263,44 +263,59 @@
             <span class="section-header-line"></span>
         </div>
         
-        <div class="row">
-            {% for noticia in noticias|slice:"1:" %}
-                <div class="col-md-4 mb-4">
-                    <div class="card h-100">
+        {% if blog_torcedor %}
+        {% with noticia_principal=blog_torcedor.0 %}
+        <div class="row g-4 align-items-start">
+            <div class="col-lg-8">
+                <article class="noticia-destaque-card">
+                    <div class="row g-3">
+                        <div class="col-md-5">
+                            {% if noticia_principal.capa %}
+                            <a href="{% url 'noticia_detalhe' noticia_principal.id %}">
+                                <img src="{{ noticia_principal.capa.url }}"
+                                    alt="{{ noticia_principal.legenda|default:noticia_principal.titulo }}"
+                                    class="destaque-img main-news-image">
+                            </a>
+                            {% endif %}
+                        </div>
+                        <div class="col-md-7 d-flex flex-column noticia-destaque-corpo">
+                            <span class="noticia-meta-tempo">
+                                {{ noticia_principal.data|timesince }} atrás
+                            </span>
+                            <a href="{% url 'noticia_detalhe' noticia_principal.id %}" class="text-decoration-none text-dark">
+                                <h3 class="destaque-titulo">{{ noticia_principal.titulo }}</h3>
+                            </a>
+                            <p class="destaque-subtitulo">{{ noticia_principal.subtitulo }}</p>
+                        </div>
+                    </div>
+                </article>
+
+                <div class="noticia-lista-menores">
+                    {% for noticia in blog_torcedor|slice:"1:5" %}
+                    <article class="noticia-menor-item">
                         {% if noticia.capa %}
-                            <div style="position: relative; display: inline-block; width: 100%;">
-                                <img src="{{ noticia.capa.url }}" class="card-img-top" alt="{{ noticia.titulo }}" style="max-height: 200px; object-fit: cover; width: 100%; display: block;">
-                                <small style="position: absolute; bottom: 8px; right: 8px; background-color: rgba(0, 0, 0, 0.7); color: white; padding: 4px 8px; border-radius: 3px; font-size: 11px;">{{ noticia.data|date:"d/m/Y" }}</small>
-                            </div>
+                        <a href="{% url 'noticia_detalhe' noticia.id %}">
+                            <img src="{{ noticia.capa.url }}" alt="{{ noticia.legenda|default:noticia.titulo }}" class="noticia-menor-thumb">
+                        </a>
                         {% endif %}
-                        <div class="card-body">
-                            <h5 class="card-title">{{ noticia.titulo }}</h5>
-                            <p class="card-text">{{ noticia.subtitulo }}</p>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <a href="{% url 'noticia_detalhe' noticia.id %}" class="btn btn-sm btn-outline-primary">Ler mais</a>
-                            </div>
+                        <div class="flex-grow-1">
+                            <a href="{% url 'noticia_detalhe' noticia.id %}" class="text-decoration-none text-dark">
+                                <h4 class="noticia-menor-titulo">{{ noticia.titulo }}</h4>
+                            </a>
+                            <p class="noticia-menor-meta">{{ noticia.data|timesince }} atrás</p>
                         </div>
-
-                        </div>
-                    </div>
+                    </article>
+                    {% endfor %}
                 </div>
-                {% endfor %}
             </div>
 
-            <div class="col-lg-4">
+            <div class="col-lg-4"></div>
+        </div>
+        {% endwith %}
+        {% else %}
+        <p>Ainda não há notícias para exibir em "BLOG DO TORCEDOR".</p>
+        {% endif %}
 
-                <div class="card placeholder-card mb-4">
-                    <div class="card-body">
-                        <h5 class="card-title text-uppercase">RECORTES</h5>
-                        <ul class="list-unstyled home-list-recortes">
-                            <li>TÍTULO 1</li>
-                            <li>TÍTULO 2</li>
-                            <li>TÍTULO 3</li>
-                        </ul>
-                    </div>
-                </div>
-
-            </div>
 
         </div>
 
@@ -320,59 +335,35 @@
             <span class="section-header-line section-header-line-pink"></span>
         </div>
 
-        {% if social_1 %}
-        {% with signo1=social_1.0 signo2=social_1.1 serie=social_1.2 agnews=social_1.3 %}
+        {% if social_signos or social_series or social_agnews %}
 
         <div class="social1-section-block mb-4">
             <h3 class="social1-subtitle">SIGNOS E ASTRONOMIA</h3>
             <div class="social1-divider"></div>
 
             <div class="row g-4">
-                {% if signo1 %}
+                {% for noticia in social_signos|slice:":2" %}
                 <div class="col-md-6">
                     <article class="social1-card">
                         <div class="social1-img-wrapper">
-                            {% if signo1.capa %}
-                            <a href="{% url 'noticia_detalhe' signo1.id %}">
-                                <img src="{{ signo1.capa.url }}" alt="{{ signo1.legenda|default:signo1.titulo }}"
+                            {% if noticia.capa %}
+                            <a href="{% url 'noticia_detalhe' noticia.id %}">
+                                <img src="{{ noticia.capa.url }}" alt="{{ noticia.legenda|default:noticia.titulo }}"
                                     class="social1-img">
                             </a>
                             {% endif %}
                             <span class="social1-date-badge">
-                                {{ signo1.data|date:"d/m/Y" }}
+                                {{ noticia.data|date:"d/m/Y" }}
                             </span>
                         </div>
-                        <a href="{% url 'noticia_detalhe' signo1.id %}" class="text-decoration-none text-dark">
+                        <a href="{% url 'noticia_detalhe' noticia.id %}" class="text-decoration-none text-dark">
                             <p class="social1-card-title">
-                                {{ signo1.titulo }}
+                                {{ noticia.titulo }}
                             </p>
                         </a>
                     </article>
                 </div>
-                {% endif %}
-
-                {% if signo2 %}
-                <div class="col-md-6">
-                    <article class="social1-card">
-                        <div class="social1-img-wrapper">
-                            {% if signo2.capa %}
-                            <a href="{% url 'noticia_detalhe' signo2.id %}">
-                                <img src="{{ signo2.capa.url }}" alt="{{ signo2.legenda|default:signo2.titulo }}"
-                                    class="social1-img">
-                            </a>
-                            {% endif %}
-                            <span class="social1-date-badge">
-                                {{ signo2.data|date:"d/m/Y" }}
-                            </span>
-                        </div>
-                        <a href="{% url 'noticia_detalhe' signo2.id %}" class="text-decoration-none text-dark">
-                            <p class="social1-card-title">
-                                {{ signo2.titulo }}
-                            </p>
-                        </a>
-                    </article>
-                </div>
-                {% endif %}
+                {% endfor %}
             </div>
         </div>
 
@@ -383,22 +374,22 @@
                     <h3 class="social1-subtitle">SÉRIES</h3>
                     <div class="social1-divider"></div>
 
-                    {% if serie %}
+                    {% if social_series %}
                     <article class="social1-card">
                         <div class="social1-img-wrapper">
-                            {% if serie.capa %}
-                            <a href="{% url 'noticia_detalhe' serie.id %}">
-                                <img src="{{ serie.capa.url }}" alt="{{ serie.legenda|default:serie.titulo }}"
+                            {% if social_series.0.capa %}
+                            <a href="{% url 'noticia_detalhe' social_series.0.id %}">
+                                <img src="{{ social_series.0.capa.url }}" alt="{{ social_series.0.legenda|default:social_series.0.titulo }}"
                                     class="social1-img">
                             </a>
                             {% endif %}
                             <span class="social1-date-badge">
-                                {{ serie.data|date:"d/m/Y" }}
+                                {{ social_series.0.data|date:"d/m/Y" }}
                             </span>
                         </div>
-                        <a href="{% url 'noticia_detalhe' serie.id %}" class="text-decoration-none text-dark">
+                        <a href="{% url 'noticia_detalhe' social_series.0.id %}" class="text-decoration-none text-dark">
                             <p class="social1-card-title">
-                                {{ serie.titulo }}
+                                {{ social_series.0.titulo }}
                             </p>
                         </a>
                     </article>
@@ -409,22 +400,22 @@
                     <h3 class="social1-subtitle">AGNEWS</h3>
                     <div class="social1-divider"></div>
 
-                    {% if agnews %}
+                    {% if social_agnews %}
                     <article class="social1-card">
                         <div class="social1-img-wrapper">
-                            {% if agnews.capa %}
-                            <a href="{% url 'noticia_detalhe' agnews.id %}">
-                                <img src="{{ agnews.capa.url }}" alt="{{ agnews.legenda|default:agnews.titulo }}"
+                            {% if social_agnews.0.capa %}
+                            <a href="{% url 'noticia_detalhe' social_agnews.0.id %}">
+                                <img src="{{ social_agnews.0.capa.url }}" alt="{{ social_agnews.0.legenda|default:social_agnews.0.titulo }}"
                                     class="social1-img">
                             </a>
                             {% endif %}
                             <span class="social1-date-badge">
-                                {{ agnews.data|date:"d/m/Y" }}
+                                {{ social_agnews.0.data|date:"d/m/Y" }}
                             </span>
                         </div>
-                        <a href="{% url 'noticia_detalhe' agnews.id %}" class="text-decoration-none text-dark">
+                        <a href="{% url 'noticia_detalhe' social_agnews.0.id %}" class="text-decoration-none text-dark">
                             <p class="social1-card-title">
-                                {{ agnews.titulo }}
+                                {{ social_agnews.0.titulo }}
                             </p>
                         </a>
                     </article>
@@ -433,7 +424,6 @@
 
             </div>
         </div>
-        {% endwith %}
         {% else %}
         <p>Ainda não há conteúdos para exibir em "SOCIAL 1".</p>
         {% endif %}
@@ -447,15 +437,23 @@
     <h3 class="home-section-title text-uppercase">RECEITA DA BOA</h3>
 
     <div class="row">
-        {% for i in "123" %}
+        {% for noticia in receita_da_boa|slice:":3" %}
         <div class="col-md-4 mb-3">
-            <div class="card placeholder-card">
-                <div class="ratio ratio-16x9 mb-2">
-                    <div class="home-img-thumb placeholder-img"></div>
+            <div class="card receita-card">
+                <div class="ratio ratio-16x9 mb-2 overflow-hidden">
+                    {% if noticia.capa %}
+                    <a href="{% url 'noticia_detalhe' noticia.id %}">
+                        <img src="{{ noticia.capa.url }}" alt="{{ noticia.legenda|default:noticia.titulo }}" class="home-img-thumb receita-img w-100 h-100 object-fit-cover">
+                    </a>
+                    {% else %}
+                    <div class="home-img-thumb receita-img receita-sem-img"></div>
+                    {% endif %}
                 </div>
                 <div class="card-body">
-                    <h5 class="card-title text-uppercase">RECEITA {{ forloop.counter }}</h5>
-                    <small class="text-muted">00/00/0000</small>
+                    <a href="{% url 'noticia_detalhe' noticia.id %}" class="text-decoration-none text-dark">
+                        <h5 class="card-title text-uppercase">{{ noticia.titulo }}</h5>
+                    </a>
+                    <small class="text-muted">{{ noticia.data|date:"d/m/Y" }}</small>
                 </div>
             </div>
         </div>
@@ -471,42 +469,27 @@
     <h3 class="home-section-title text-uppercase">MAIS LIDAS</h3>
 
     <div class="row">
+        {% for noticia in mais_lidas|slice:":3" %}
         <div class="col-md-4 mb-3">
-            <div class="card placeholder-card">
+            <div class="card receita-card">
+                <div class="ratio ratio-16x9 mb-2 overflow-hidden">
+                    {% if noticia.capa %}
+                    <a href="{% url 'noticia_detalhe' noticia.id %}">
+                        <img src="{{ noticia.capa.url }}" alt="{{ noticia.legenda|default:noticia.titulo }}" class="home-img-thumb receita-img w-100 h-100 object-fit-cover">
+                    </a>
+                    {% else %}
+                    <div class="home-img-thumb receita-img receita-sem-img"></div>
+                    {% endif %}
+                </div>
                 <div class="card-body">
-                    <h5 class="card-title text-uppercase">NOTÍCIAS — VEJA MAIS</h5>
-                    <ul class="list-unstyled home-list-mais-lidas">
-                        <li>TÍTULO 1</li>
-                        <li>TÍTULO 2</li>
-                        <li>TÍTULO 3</li>
-                    </ul>
+                    <a href="{% url 'noticia_detalhe' noticia.id %}" class="text-decoration-none text-dark">
+                        <h5 class="card-title text-uppercase">{{ noticia.titulo }}</h5>
+                    </a>
+                    <small class="text-muted">{{ noticia.data|date:"d/m/Y" }}</small>
                 </div>
             </div>
         </div>
-        <div class="col-md-4 mb-3">
-            <div class="card placeholder-card">
-                <div class="card-body">
-                    <h5 class="card-title text-uppercase">BLOG DO TORCEDOR — VEJA MAIS</h5>
-                    <ul class="list-unstyled home-list-mais-lidas">
-                        <li>TÍTULO 1</li>
-                        <li>TÍTULO 2</li>
-                        <li>TÍTULO 3</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4 mb-3">
-            <div class="card placeholder-card">
-                <div class="card-body">
-                    <h5 class="card-title text-uppercase">SOCIAL 1 — VEJA MAIS</h5>
-                    <ul class="list-unstyled home-list-mais-lidas">
-                        <li>TÍTULO 1</li>
-                        <li>TÍTULO 2</li>
-                        <li>TÍTULO 3</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+        {% endfor %}
     </div>
 
     <div class="text-end">
