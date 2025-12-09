@@ -63,10 +63,14 @@
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item dropdown">
-                <a class="btn btn-primary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Dropdown
+                <a class="btn btn-primary dropdown-toggle p-0" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="background: none; border: none;">
+                  <img src="https://i.ibb.co/hFG8WdZK/imagem-2025-12-09-111027537.png" alt="Menu" style="height: 40px; width: auto;">
                 </a>
                 <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="{% url 'busca_personalizada' %}">Busca Personalizada</a></li>
+                  <li>
+                    <hr class="dropdown-divider">
+                  </li>
                   <li><a class="dropdown-item" href="#">Últimas Notícias</a></li>
                   <li>
                     <hr class="dropdown-divider">

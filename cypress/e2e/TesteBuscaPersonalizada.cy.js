@@ -47,7 +47,11 @@ Cypress.Commands.add('postarDuasNoticiaseIrNoLeiaMais', () => {
 });
 
 Cypress.Commands.add('ConfirmarBuscaPersonalizada', () => {
-    cy.visit('http://127.0.0.1:8000/personalizada/');
+    cy.get('.dropdown-toggle').first().click();
+  
+  cy.get('.dropdown-menu').should('be.visible');
+  cy.get('.dropdown-menu').contains('a', 'Busca Personalizada').click();
+  
     cy.url().should('include', 'personalizada/');
     cy.get('h5.card-title').contains('Teste de Notícia').should('be.visible');
 });

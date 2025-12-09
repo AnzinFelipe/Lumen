@@ -29,7 +29,7 @@ Cypress.Commands.add('postarTema', () => {
 Cypress.Commands.add('verificarNoticiaNaPaginaEconomia', () => {
   cy.visit('http://127.0.0.1:8000/');
   
-  cy.get('.btn-primary.dropdown-toggle').click();
+  cy.get('.dropdown-toggle').first().click();
   
   cy.get('.dropdown-menu').should('be.visible');
   cy.get('.dropdown-menu').contains('a', 'Economia').click();
