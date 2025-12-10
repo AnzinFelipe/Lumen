@@ -1,69 +1,101 @@
-<!DOCTYPE html>
+{% extends "portal/base.html" %}
 {% load static %}
 
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <link rel="stylesheet" href="{% static 'postagens/css/login.css' %}">
-</head>
-<body>
-    <div class="formulario-container">
-        <h2>Login</h2>
-        
-        {% if errors %}
-            <div class="mensagem erro">
-                {% for error in errors %}
-                    <div>{{ error }}</div>
-                {% endfor %}
-            </div>
-        {% endif %}
-        
-        {% if form.errors %}
-            <p class="mensagem erro">Sua senha ou usuário estão incorretos</p>
-        {% endif %}
+{% block extra_css %}
+    {{ block.super }}
+    <style>
+        /* "MAIS POPULARES" COLOQUEI ESCONDIDO */
+        header + main .col-md-3.mb-4 {
+            display: none !important;
+        }
 
-        {% if next %}
-            {% if user.is_authenticated %}
-                <p class="mensagem erro">Sua conta não tem acesso a essa página</p>
-            {% else %}
-                <p class="mensagem">Logue para ter acesso a essa página</p>
-            {% endif %}
-        {% endif %}
+        /* Expande o conteúdo principal (col-md-9) para 100% da largura, 
+           compensando a remoção do sidebar (col-md-3) */
+        header + main .col-md-9 {
+            flex: 0 0 100% !important;
+            max-width: 100% !important;
+        }
+    </style>
+{% endblock extra_css %}
 
-        <form method="post" action="{% url 'login' %}">
-            {% csrf_token %}
-            
-            <table class="tabela">
-                <tr class="celula">
-                    <td colspan="2">
-                        <label for="username">Nome de usuário:</label>
-                        <input type="text" id="username" name="username" class="texto" required>
-                    </td>
-                </tr>
+{% block title %}Login{% endblock %}
+
+{% block content %}
+    <div class="auth-page">
+        <div class="auth-wrapper">
+            <div class="auth-panel">
                 
-                <tr class="celula">
-                    <td colspan="2">
-                        <label for="password">Senha:</label>
-                        <input type="password" id="password" name="password" class="senha" required>
-                    </td>
-                </tr>
-            </table>
+                <header class="auth-header">
+                    <h1 class="auth-main-title">FAÇA SEU <span>LOGIN</span></h1>
+                    <div class="auth-title-line"></div>
+                </header>
 
-            <input type="hidden" name="next" value="{{ next }}" />
-            
-            <button type="submit" class="botao-login">Login</button>
-        </form>
+                {% if errors or form.errors or next %}
+                    <div class="auth-alert auth-alert-error">
+                        {% if errors %}
+                            {% for error in errors %}
+                                <div>{{ error }}</div>
+                            {% endfor %}
+                        {% endif %}
 
-        <div class="rodape-formulario">
-            <p class="mensagem">
-                <a href="{% url 'password_reset' %}" class="link-senha">Esqueceu sua senha?</a>
-            </p>
-            <p class="mensagem">
-                Não tem uma conta? <a href="{% url 'registrar' %}" class="link-login">Registre-se aqui</a>
-            </p>
+                        {% if form.errors and not errors %}
+                            <p>Sua senha ou nome de usuário estão incorretos.</p>
+                        {% endif %}
+
+                        {% if next %}
+                            {% if user.is_authenticated %}
+                                <p>Sua conta não tem acesso a essa página.</p>
+                            {% else %}
+                                <p>Logue para ter acesso a essa página.</p>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                {% endif %}
+                
+                <form method="post" action="{% url 'login' %}" class="auth-form">
+                    {% csrf_token %}
+                    
+                    <div class="auth-field">
+                        <div class="auth-label-strong">Nome de usuário:</div>
+                        <input type="text" id="username" name="username" placeholder="Seu nome de usuário ou e-mail" required>
+                    </div>
+                    
+                    <div class="auth-field">
+                        <div class="auth-label-strong">Senha:</div>
+                        <input type="password" id="password" name="password" placeholder="Sua senha de acesso" required>
+                    </div>
+                    
+                    <input type="hidden" name="next" value="{{ next }}" />
+                    
+                    <div class="auth-actions">
+                        <button type="submit" class="btn-auth-primary">ENTRAR</button>
+                    </div>
+                </form>
+
+                <div class="auth-divider-text">Ou entre com:</div>
+
+                <div class="auth-social-row">
+                    <a href="#" class="auth-social-link" title="Login com Google">
+                        <img src="https://i.ibb.co/H6j9SXc/imagem-2025-12-10-104719347.png" alt="Google"class="auth-social-icon" width="50"height="50">
+                    </a>
+                    <a href="#" class="auth-social-link" title="Login com Facebook">
+                        <img src="https://i.ibb.co/2b8WThL/imagem-2025-12-10-105010720.png" alt="Facebook" class="auth-social-icon" width="70"height="70">
+                    </a>
+                </div>
+
+                <div class="auth-footer-text-top">
+                    <a href="{% url 'password_reset' %}" style="color: #2D54A4; text-decoration: none;">Esqueceu sua senha?</a>
+                </div>
+                
+                <div class="auth-footer-text-top">
+                    Ainda não tem conta?
+                </div>
+                <div class="auth-actions">
+                    <a href="{% url 'registrar' %}" class="btn-auth-secondary">CRIE SUA CONTA</a>
+                </div>
+                
+            </div>
         </div>
     </div>
-</body>
-</html>
+
+{% endblock content %}

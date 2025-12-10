@@ -2,7 +2,7 @@ Cypress.Commands.add('fazerLogin', () => {
   cy.visit('http://127.0.0.1:8000/accounts/login/');
   cy.get('#username').type('Cesar');
   cy.get('#password').type('123');
-  cy.get('button[type="submit"]').click();
+  cy.contains('button', 'ENTRAR').click();
   cy.wait(2000);
   cy.url().should('not.include', '/accounts/login/');
 });

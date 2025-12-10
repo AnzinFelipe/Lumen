@@ -1,64 +1,75 @@
-<!DOCTYPE html>
-{% load static %}  
+{% extends "portal/base.html" %}
+{% load static %}
 
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro</title>
-    <link rel="stylesheet" href="{% static 'postagens/css/register.css' %}">  
-</head>
-<body>
-    <div class="formulario-login">
-        <h2>Registrar Conta</h2>
-        
-        {% if errors %}
-            <div class="mensagem erro">  
-                {% for error in errors %}
-                    <div>{{ error }}</div>
-                {% endfor %}
+{% block extra_css %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'portal/css/lumencustom.css' %}">
+    <style>
+        /* Regras para garantir que o contêiner de autenticação ocupe a tela inteira, sem o sidebar */
+        header + main .col-md-3.mb-4 {
+            display: none !important;
+        }
+
+        header + main .col-md-9 {
+            flex: 0 0 100% !important;
+            max-width: 100% !important;
+        }
+    </style>
+{% endblock extra_css %}
+
+{% block title %}Criar Conta{% endblock %}
+
+{% block content %}
+    <div class="auth-page">
+        <div class="auth-wrapper">
+            <div class="auth-panel">
+                
+                <header class="auth-header">
+                    <h1 class="auth-main-title">CRIE SUA <span>CONTA</span></h1>
+                    <div class="auth-title-line"></div>
+                </header>
+                
+                {% if errors %}
+                    <div class="auth-alert auth-alert-error">  
+                        {% for error in errors %}
+                            <div>{{ error }}</div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
+                <form method="post" class="auth-form">
+                    {% csrf_token %}
+                    
+                    <div class="auth-field">
+                        <div class="auth-label-strong">Nome de usuário:</div>
+                        <input type="text" id="username" name="username" placeholder="Escolha um nome de usuário" value="{{ username|default:'' }}" required>
+                    </div>
+                    
+                    <div class="auth-field">
+                        <div class="auth-label-strong">Email (opcional):</div>
+                        <input type="email" id="email" name="email" placeholder="Seu e-mail (opcional)" value="{{ email|default:'' }}">
+                    </div>
+                    
+                    <div class="auth-field">
+                        <div class="auth-label-strong">Senha:</div>
+                        <input type="password" id="senha" name="senha" placeholder="Crie sua senha" required>
+                    </div>
+                    
+                    <div class="auth-field">
+                        <div class="auth-label-strong">Confirmar Senha:</div>
+                        <input type="password" id="senhaconfirmar" name="senhaconfirmar" placeholder="Repita a senha" required>
+                    </div>
+
+                    <div class="auth-actions">
+                        <button type="submit" class="btn-auth-primary">Registrar</button>
+                    </div>
+                </form>
+
+                <div class="auth-footer-text-top" style="margin-top: 20px;">
+                    Já tem uma conta? <a href="{% url 'login' %}" style="color: #2D54A4; text-decoration: none; font-weight: 700;">Faça login aqui</a>
+                </div>
+                
             </div>
-        {% endif %}
-
-        <form method="post">
-            {% csrf_token %}
-            
-            <table class="tabela">
-                <tr class="celula">
-                    <td colspan="2">  
-                        <label for="username">Nome de usuário:</label>
-                        <input type="text" id="username" name="username" class="texto" value="{{ username|default:'' }}" required>
-                    </td>
-                </tr>
-                
-                <tr class="celula">
-                    <td colspan="2">  
-                        <label for="email">Email (opcional):</label>
-                        <input type="email" id="email" name="email" class="email" value="{{ email|default:'' }}">
-                    </td>
-                </tr>
-                
-                <tr class="celula">
-                    <td colspan="2">  
-                        <label for="senha">Senha:</label>
-                        <input type="password" id="senha" name="senha" class="senha" required>
-                    </td>
-                </tr>
-                
-                <tr class="celula">
-                    <td colspan="2">  
-                        <label for="senhaconfirmar">Confirmar Senha:</label>
-                        <input type="password" id="senhaconfirmar" name="senhaconfirmar" class="confirma-senha" required>
-                    </td>
-                </tr>
-            </table>
-
-            <button type="submit" class="botao-registro">Registrar</button>
-        </form>
-
-        <div class="mensagem">
-            Já tem uma conta? <a href="{% url 'login' %}" class="link-login">Faça login aqui</a>
         </div>
     </div>
-</body>
-</html>
+{% endblock content %}

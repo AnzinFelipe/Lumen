@@ -18,21 +18,21 @@ Cypress.Commands.add('criarUsuario', () => {
 
   cy.get('#username').should('be.visible');
 
-  cy.get('#username').type('TestandoCypress14');
-  cy.get('#email').type('testeCypress14@gmail.com');
+  cy.get('#username').type('TestandoCypress67');
+  cy.get('#email').type('testeCypress67@gmail.com');
   cy.get('#senha').type('12345678');
   cy.get('#senhaconfirmar').type('12345678');
 
-  cy.get('button[type="submit"]').click();
+  cy.contains('button', 'Registrar').click();
   cy.wait(2000);
   cy.url().should('not.include', '/registrar/');
 });
 
 Cypress.Commands.add('fazerLogin', () => {
   cy.visit('http://127.0.0.1:8000/accounts/login/');
-  cy.get('#username').type('TestandoCypress14');
+  cy.get('#username').type('TestandoCypress67');
   cy.get('#password').type('12345678');
-  cy.get('button[type="submit"]').click();
+  cy.contains('button', 'ENTRAR').click();
 
   cy.url().should('not.include', '/accounts/login/');
 });
