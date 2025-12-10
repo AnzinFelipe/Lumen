@@ -24,20 +24,6 @@
     {# ADICIONADO #}
     <article class="noticia-conteudo">
 
-        {# ADICIONADO #}
-        <div class="noticia-audio">
-
-            <!-- quando tiver campo de áudio: --> 
-
-                {% if noticia.audio %}
-                    <audio controls src="{{ noticia.audio.url }}"></audio>
-                {% endif %}
-            
-            <button class="noticia-audio__play" type="button" aria-label="Ouça a notícia">▶</button>
-            <span class="noticia-audio__label">Ouça a notícia</span>
-            <span class="noticia-audio__line"></span>
-        </div>
-
         <div class="noticia">
 
             {# ADICIONADO #}
@@ -113,10 +99,9 @@
         <div class="noticia-share">
             <h3 class="noticia-share__titulo">Compartilhe</h3>
             <div class="noticia-share__icones">
-                <a href="#" class="share-icone" aria-label="Compartilhar no WhatsApp">WA</a>
-                <a href="#" class="share-icone" aria-label="Compartilhar no Twitter/X">X</a>
-                <a href="#" class="share-icone" aria-label="Compartilhar no Facebook">f</a>
-                <a href="#" class="share-icone" aria-label="Copiar link">⧉</a>
+                <a href="https://api.whatsapp.com/send?text=https://lumen-kappa-flame.vercel.app" class="share-icone" aria-label="Compartilhar no WhatsApp">WA</a>
+                <a href="https://twitter.com/intent/tweet?text=https://lumen-kappa-flame.vercel.app" class="share-icone" aria-label="Compartilhar no Twitter/X">X</a>
+                <a href="https://www.facebook.com/sharer/sharer.php?u=https://lumen-kappa-flame.vercel.app" class="share-icone" aria-label="Compartilhar no Facebook">f</a>
             </div>
         </div>
 
