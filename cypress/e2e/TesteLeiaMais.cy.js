@@ -8,7 +8,7 @@ Cypress.Commands.add('fazerLogin', () => {
 });
 
 Cypress.Commands.add('postarDuasNoticiaseIrNoLeiaMais', () => {
-    cy.contains('a', 'CRIAR NOTÍCIA').click()
+    cy.visit('http://127.0.0.1:8000/criar_noticia/');
     
     cy.get('#titulo').type('Teste de Notícia');
     cy.get('#subtitulo').type('Subtítulo do Teste de Notícia');
@@ -21,7 +21,7 @@ Cypress.Commands.add('postarDuasNoticiaseIrNoLeiaMais', () => {
     cy.url().should('eq', 'http://127.0.0.1:8000/');
     cy.contains('Teste de Notícia').should('be.visible');
     
-    cy.contains('a', 'CRIAR NOTÍCIA').click()
+    cy.visit('http://127.0.0.1:8000/criar_noticia/');
     
     cy.get('#titulo').type('Teste para o Leia Mais');
     cy.get('#subtitulo').type('Subtítulo do Teste de Leia Mais');

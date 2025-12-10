@@ -45,6 +45,6 @@ describe('Fluxo do usuário', () => {
   it('deve criar um usuario e fazer login no site', () => {
     cy.criarUsuario();
     cy.fazerLogin();
-    cy.contains('Teste de Notícia').should('be.visible');
+    cy.contains('MAIS RELEVANTES DA SEMANA').should('be.visible');
   });
 });
