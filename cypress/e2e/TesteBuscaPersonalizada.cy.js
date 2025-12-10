@@ -1,5 +1,6 @@
 Cypress.Commands.add('fazerLogin', () => {
-  cy.visit('http://127.0.0.1:8000/accounts/login/');
+  cy.visit('http://127.0.0.1:8000/');
+  cy.contains('a', 'Login').click();
   cy.get('#username').type('Cesar');
   cy.get('#password').type('123');
   cy.contains('button', 'ENTRAR').click();
@@ -8,7 +9,7 @@ Cypress.Commands.add('fazerLogin', () => {
 });
 
 Cypress.Commands.add('postarDuasNoticiaseIrNoLeiaMais', () => {
-    cy.visit('http://127.0.0.1:8000/criar_noticia/');
+    cy.contains('a', 'CRIAR NOTÍCIA').click()
     
     cy.get('#titulo').type('Teste de Notícia');
     cy.get('#subtitulo').type('Subtítulo do Teste de Notícia');
@@ -21,7 +22,7 @@ Cypress.Commands.add('postarDuasNoticiaseIrNoLeiaMais', () => {
     cy.url().should('eq', 'http://127.0.0.1:8000/');
     cy.contains('Teste de Notícia').should('be.visible');
     
-    cy.visit('http://127.0.0.1:8000/criar_noticia/');
+    cy.contains('a', 'CRIAR NOTÍCIA').click()
     
     cy.get('#titulo').type('Teste para o Leia Mais');
     cy.get('#subtitulo').type('Subtítulo do Teste de Leia Mais');

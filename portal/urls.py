@@ -6,6 +6,7 @@ urlpatterns = [
     path('criar_noticia/', views.criar_noticia, name='criar_noticia'),
     path('criar-noticia/', views.criar_noticia), #ADICIONADO
     path('accounts/login/', views.Login, name='login'),
+    path('accounts/logout/', views.Logout, name='logout'),
     path('esportes/', views.esportes, name='esportes'),
     path('economia/', views.economia, name='economia'),
     path('politica/', views.politica, name='politica'),

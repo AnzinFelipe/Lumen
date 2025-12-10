@@ -1,6 +1,6 @@
 from django.shortcuts import redirect, render
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse
 from django.contrib.auth.decorators import user_passes_test # ADICIONADO
 from rolepermissions.roles import assign_role
@@ -140,6 +140,11 @@ def Login(request):
                 'errors': ['Nome de usuário ou senha incorretos.']
             })
     return render(request, 'registration/login.html')
+
+
+def Logout(request):
+    logout(request)
+    return redirect('login')
 
 
 def criar_noticia(request):

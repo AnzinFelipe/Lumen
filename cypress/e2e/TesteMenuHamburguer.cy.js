@@ -12,7 +12,7 @@ before(() => {
 });
 
 Cypress.Commands.add('postarTema', () => {
-  cy.visit('http://127.0.0.1:8000/criar_noticia/');
+  cy.contains('a', 'CRIAR NOTÍCIA').click()
   
   cy.get('#titulo').type('Teste de Notícia');
   cy.get('#subtitulo').type('Subtítulo do Teste de Notícia');
