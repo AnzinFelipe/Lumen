@@ -35,7 +35,7 @@
         <ul>
           <li><a href="https://www.uol.com.br" target="_blank"><img
                 src="https://i.ibb.co/gZWZsh1d/imagem-2025-11-29-140708757.png" alt="UOL imagem" width="70"
-                height="35"></a></li>
+                height="25"></a></li>
           <li><a href="https://www.ingresso.com" target="_blanck">INGRESSO.COM</a></li>
           <li><a href="https://uolhost.uol.com.br" target="_blanck">UOL HOST</a></li>
           <li><a href="https://pagbank.com.br" target="_blanck">PAGBANK</a></li>
@@ -153,14 +153,20 @@
           </div>
         </div>
       </nav>
-      <a href="{% url 'home' %}"><img src="https://i.ibb.co/dsczrvQ5/imagem-2025-11-29-135836164.png"
+      <div id "jc_img">
+        <a href="{% url 'home' %}"><img src="https://i.ibb.co/dsczrvQ5/imagem-2025-11-29-135836164.png"
           alt="JC_Imagem"></a>
-      <form class="d-flex" method=POST action="{%url 'pesquisa-noticia'%}">
-        {% csrf_token %}
-        <input class="form-control me-2" type="search" placeholder="Pesquisar notícias" aria-label="Pesquisar"
-          name='objeto'>
-        <button class="btn btn-outline-success" type="submit">Pesquisar</button>
-      </form>
+      </div>
+      <div id = "pesquisa">
+        <form class="d-flex" method=POST action="{%url 'pesquisa-noticia'%}">
+          {% csrf_token %}
+          <input id = "pesquisa_caixa" class="form-control me-2" type="search" placeholder="Pesquisar notícias" aria-label="Pesquisar"
+            name='objeto'>
+          <button id = "pesquisa_botao" class="btn" type="submit">
+            <a href="https://imgbb.com/"><img id = "img_lupa" src="https://i.ibb.co/RkhNf9Xd/Lupa.png" alt="Lupa" style="height: 30px; width: 30px;"></a>
+          </button>
+        </form>
+      </div>
     </div>
   </header>
   {% endblock header %}
