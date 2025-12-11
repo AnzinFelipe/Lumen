@@ -45,7 +45,7 @@ def home(request): # ADADAPITADO
     tema_entretenimento = Tema.objects.filter(tema="Entretenimento").first()
     if tema_entretenimento:
         social_series = Noticia.objects.filter(tema=tema_entretenimento).order_by('-visualizacoes', '-data')
-        social_agnews = Noticia.objects.filter(tema=tema_entretenimento).order_by('-visualizacoes', '-data')
+        social_agnews = Noticia.objects.filter(tema=tema_entretenimento).order_by('-data')
     else:
         social_series = Noticia.objects.none()
         social_agnews = Noticia.objects.none()
