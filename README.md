@@ -80,9 +80,9 @@ Dentro da nossa proposta, está incluso:
 
 * Adição de testes automatizados no CI/CD.
 * Criação da screencast de testes:
-* Link: 
+* Link: [Testes Automatizados](https://youtu.be/NIGJiOqx7Hk)
 * Criação da screencast do processo de build e deployment.
-* Link: [Screencast](https://youtu.be/MFRAQ063z9w)
+* Link: [Build e Deploy Automatizado](https://youtu.be/MFRAQ063z9w)
 </details>
 
 <details open>
